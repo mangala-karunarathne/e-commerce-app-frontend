@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// Publicly Availabe Pages:
 import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProductListPage from "./pages/ProductListPage";
@@ -11,7 +13,10 @@ import UserProfilePage from "./pages/user/UserProfilePage";
 import UserCartDetailsPage from "./pages/user/UserCartDetailsPage";
 import UserOrderDetailsPage from "./pages/user/UserOrderDetailsPage";
 import UserOrdersPage from "./pages/user/UserOrdersPage";
+
 import ProtectedRoutesComponent from "./components/ProtectedRoutesComponent";
+
+// Protected Admin Pages:
 import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminEditUserPage from "./pages/admin/AdminEditUserPage";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
@@ -21,9 +26,14 @@ import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminOrderDetailsPage from "./pages/admin/AdminOrderDetailsPage";
 import AdminChatsPage from "./pages/admin/AdminChatsPage";
 
+// Header and Footer Components:
+import FooterComponent from "./components/FooterComponent";
+import HeaderComponent from "./components/HeaderComponent";
+
 function App() {
   return (
     <BrowserRouter>
+    <HeaderComponent/>
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/product-details/:id" element={<ProductDetailsPage />} />
@@ -53,6 +63,7 @@ function App() {
           <Route path="/admin/chats" element={<AdminChatsPage />} />
         </Route>
       </Routes>
+      <FooterComponent/>
     </BrowserRouter>
   );
 }
