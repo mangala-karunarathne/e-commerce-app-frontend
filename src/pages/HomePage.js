@@ -1,9 +1,10 @@
 import React from 'react'
+import ProductCarouselComponent from '../components/ProductCarouselComponent'
 
 const HomePage = () => {
   return (
     <div>
-      <p> This is the Home Page</p>
+      <ProductCarouselComponent/>
     </div>
   )
 }
