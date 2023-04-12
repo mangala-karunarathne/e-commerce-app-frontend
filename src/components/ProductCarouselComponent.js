@@ -10,7 +10,7 @@ const ProductCarouselComponent = () => {
           className="d-block w-100"
           src="/images/carousel/4A.png"
           alt="First slide"
-          style={{ height: "50vh" }}
+          style={{ height: "300px", objectFit: "cover"}}
         />
         <Carousel.Caption>
           <h3>First slide label</h3>
@@ -22,7 +22,7 @@ const ProductCarouselComponent = () => {
           className="d-block w-100"
           src="/images/carousel/5A.png"
           alt="Second slide"
-          style={{ height: "50vh" }}
+          style={{ height: "300px", objectFit: "cover"}}
         />
 
         <Carousel.Caption>
@@ -32,10 +32,11 @@ const ProductCarouselComponent = () => {
       </Carousel.Item>
       <Carousel.Item>
         <img
+          crossOrigin="anonymous"
           className="d-block w-100"
           src="/images/carousel/6A.png"
           alt="Third slide"
-          style={{ height: "50vh" }}
+          style={{ height: "300px", objectFit: "cover"}}
         />
 
         <Carousel.Caption>
