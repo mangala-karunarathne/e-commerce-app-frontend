@@ -11,7 +11,7 @@ const UserChatComponent = () => {
         <i className="bi bi-x-circle close"></i>
       </label>
       <div className="chat-wrapper">
-        <div className="chat-HeaderComponent">
+        <div className="chat-header">
           <h6>Let's Chat Online</h6>
         </div>
       </div>
