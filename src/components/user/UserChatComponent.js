@@ -1,5 +1,6 @@
 import React from "react";
 import "../../chats.css";
+import HeaderComponent from './../HeaderComponent';
 
 const UserChatComponent = () => {
   return (
@@ -9,6 +10,11 @@ const UserChatComponent = () => {
         <i className="bi bi-chat-dots comment"></i>
         <i className="bi bi-x-circle close"></i>
       </label>
+      <div className="chat-wrapper">
+        <div className="chat-HeaderComponent">
+          <h6>Let's Chat Online</h6>
+        </div>
+      </div>
     </>
   );
 };
