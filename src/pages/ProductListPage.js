@@ -1,26 +1,44 @@
 import React from "react";
-import { Button, Col, Container, ListGroup, Pagination, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  ListGroup,
+  Pagination,
+  Row,
+} from "react-bootstrap";
+import SortOptionsComponent from "../components/SortOptionsComponent";
+import PriceFilterComponent from "../components/filterQueryResultOptions/PriceFilterComponent";
+import RatingFilterComponent from "../components/filterQueryResultOptions/RatingFilterComponent";
+import CategoryFilterComponent from "../components/filterQueryResultOptions/CategoryFilterComponent";
+import AttributesFilterComponent from "../components/filterQueryResultOptions/AttributesFilterComponent";
+import ProductForListComponent from "../components/ProductForListComponent";
+import PaginationComponent from "../components/PaginationComponent";
 
 const ProductListPage = () => {
   return (
     <Container fluid>
       <Row>
         <Col md={3}>
-          <ListGroup>
-            <ListGroup.Item>Cras justo odio</ListGroup.Item>
-            <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-            <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-            <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-            <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+          <ListGroup variant="flush">
             <ListGroup.Item>
-            <Button variant="primary">Primary</Button>
+              <SortOptionsComponent />
+            </ListGroup.Item>
+            <ListGroup.Item><PriceFilterComponent /></ListGroup.Item>
+            <ListGroup.Item><RatingFilterComponent /></ListGroup.Item>
+            <ListGroup.Item><CategoryFilterComponent /></ListGroup.Item>
+            <ListGroup.Item>
+              <AttributesFilterComponent />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button variant="primary">Primary</Button>
               <Button variant="danger">Danger</Button>
             </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={9}>
-          {/* <ProductForListComponent />
-          <PaginationComponent /> */}
+          <ProductForListComponent />
+          <PaginationComponent />
         </Col>
       </Row>
     </Container>
