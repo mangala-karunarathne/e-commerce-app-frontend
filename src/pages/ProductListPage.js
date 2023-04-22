@@ -44,7 +44,9 @@ const ProductListPage = () => {
           </ListGroup>
         </Col>
         <Col md={9}>
-          <ProductForListComponent />
+          {Array.from({length:5}).map((_,idx)=>(
+          <ProductForListComponent key={idx} images={["games", "monitors", "tablets", "books", "videos"]} idx={idx}/>
+          ))}
           <PaginationComponent />
         </Col>
       </Row>
