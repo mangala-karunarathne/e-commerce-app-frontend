@@ -4,8 +4,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const CategoryCardComponent = ({category, idx}) => {
   const images = [
-    "/images/tablets.png",
-    "/images/monitors.png",
+    "/images/tablets.jpg",
+    "/images/monitors.jpg",
     "/images/games.jpg",
     "/images/printers.jpg",
     "/images/software.jpg",
