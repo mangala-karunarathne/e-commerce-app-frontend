@@ -27,31 +27,34 @@ const ProductDetailsPage = () => {
           <Row>
             <Col md={8}>
               <ListGroup>
-                <ListGroup.Item>Test Title Added here</ListGroup.Item>
+                <ListGroup.Item><h1>Test Title Added here</h1></ListGroup.Item>
                 <ListGroup.Item>
                   <Rating readonly size={20} initialValue={4} />
                   (1)
                 </ListGroup.Item>
-                <ListGroup.Item> Best Laptops</ListGroup.Item>
-                <ListGroup.Item>MK Online Shop</ListGroup.Item>
+                <ListGroup.Item>Price <span className="fw-bold">$165</span></ListGroup.Item>
+                <ListGroup.Item>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, sint!
+                  MK Online Shop
+                  </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={4}>
               <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                <ListGroup.Item>Status in Stock</ListGroup.Item>
+                <ListGroup.Item>Price <span className="fw-bold">$165</span></ListGroup.Item>
                 <ListGroup.Item>
+                  Quantity :
                   <Form.Select size="lg" aria-label="Default select example">
-                    <option>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option>1</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
+                    <option value="3">4</option>
                   </Form.Select>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button variant="danger">Danger</Button>
+                  <Button variant="danger">Add to Cart</Button>
                 </ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>
