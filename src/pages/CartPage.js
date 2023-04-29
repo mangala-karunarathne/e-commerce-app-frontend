@@ -1,9 +1,46 @@
-import React from 'react'
+import React from "react";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const CartPage = () => {
   return (
-    <div>This is the Cart Page</div>
-  )
-}
+    <Container fluid>
+      <Row className="mt-4">
+        <Col md={8}>
+          <h1>Shoping Cart</h1>
+          {Array.from({ length: 3 }).map((item) => (
+            <>
+              CartItemComponent <br />
+            </>
+          ))}
+          <Alert variant="info">Your Cart is Empty</Alert>
+        </Col>
+        <Col md={4}>
+          <ListGroup>
+            <ListGroupItem>
+              <h3>Subtotal (2 Items)</h3>
+            </ListGroupItem>
+            <ListGroupItem>
+              Price: <span className="fw-bold">$225</span>
+            </ListGroupItem>
+            <ListGroupItem>
+              <LinkContainer to="/user/order-details">
+                <Button type="button">Proceed to checkout</Button>
+              </LinkContainer>
+            </ListGroupItem>
+          </ListGroup>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
-export default CartPage
+export default CartPage;
