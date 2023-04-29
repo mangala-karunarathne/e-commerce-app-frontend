@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Alert,
   Button,
@@ -11,38 +11,70 @@ import {
 } from "react-bootstrap";
 import AddedToCartMessegeComponent from "../components/AddedToCartMessegeComponent";
 import { Rating } from "react-simple-star-rating";
+import ImageZoom from "js-image-zoom";
 
 const ProductDetailsPage = () => {
+  useEffect(() => {
+
+    var options = {
+      width: 400,
+      zoomWidth: 500,
+      // filContainer: true,
+      // zoomPosition: "bottom",
+      // scale: 2,
+      offset: {verticle:0, horizontal:0},
+    }
+
+    new ImageZoom(document.getElementById("first"),options)
+    new ImageZoom(document.getElementById("second"),options)
+    new ImageZoom(document.getElementById("third"),options)
+    new ImageZoom(document.getElementById("fourth"),options)
+  })
+  
   return (
     <Container>
       <AddedToCartMessegeComponent />
       <Row className="mt-5">
-        <Col md={4}>
-          <Image fluid src="/images/books.jpg" />
-          <Image fluid src="/images/cameras.jpg" />
-          <Image fluid src="/images/monitors.jpg" />
-          <Image fluid src="/images/tablets.jpg" />
+        <Col style={{zIndex:1}} md={4}>
+          <div id="first">
+            <Image crosOrigin="anonymous" fluid src="/images/books.jpg" />
+          </div>
+          <div id="second">
+            <Image crosOrigin="anonymous" fluid src="/images/cameras.jpg" />
+          </div>
+          <div id="third">
+            <Image crosOrigin="anonymous" fluid src="/images/monitors.jpg" />
+          </div>
+          <div id="fourth">
+            <Image crosOrigin="anonymous" fluid src="/images/tablets.jpg" />
+          </div>
         </Col>
         <Col md={8}>
           <Row>
             <Col md={8}>
               <ListGroup>
-                <ListGroup.Item><h1>Test Title Added here</h1></ListGroup.Item>
+                <ListGroup.Item>
+                  <h1>Test Title Added here</h1>
+                </ListGroup.Item>
                 <ListGroup.Item>
                   <Rating readonly size={20} initialValue={4} />
                   (1)
                 </ListGroup.Item>
-                <ListGroup.Item>Price <span className="fw-bold">$165</span></ListGroup.Item>
                 <ListGroup.Item>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, sint!
-                  MK Online Shop
-                  </ListGroup.Item>
+                  Price <span className="fw-bold">$165</span>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
+                  sint! MK Online Shop
+                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={4}>
               <ListGroup>
                 <ListGroup.Item>Status in Stock</ListGroup.Item>
-                <ListGroup.Item>Price <span className="fw-bold">$165</span></ListGroup.Item>
+                <ListGroup.Item>
+                  Price <span className="fw-bold">$165</span>
+                </ListGroup.Item>
                 <ListGroup.Item>
                   Quantity :
                   <Form.Select size="lg" aria-label="Default select example">
