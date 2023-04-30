@@ -37,16 +37,16 @@ const ProductDetailsPage = () => {
       <Row className="mt-5">
         <Col style={{zIndex:1}} md={4}>
           <div id="first">
-            <Image crosOrigin="anonymous" fluid src="/images/books.jpg" />
+            <Image crosorigin="anonymous" fluid src="/images/books.jpg" />
           </div>
           <div id="second">
-            <Image crosOrigin="anonymous" fluid src="/images/cameras.jpg" />
+            <Image crosorigin="anonymous" fluid src="/images/cameras.jpg" />
           </div>
           <div id="third">
-            <Image crosOrigin="anonymous" fluid src="/images/monitors.jpg" />
+            <Image crosorigin="anonymous" fluid src="/images/monitors.jpg" />
           </div>
           <div id="fourth">
-            <Image crosOrigin="anonymous" fluid src="/images/tablets.jpg" />
+            <Image crosorigin="anonymous" fluid src="/images/tablets.jpg" />
           </div>
         </Col>
         <Col md={8}>

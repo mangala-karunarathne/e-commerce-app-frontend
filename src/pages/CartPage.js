@@ -17,11 +17,9 @@ const CartPage = () => {
       <Row className="mt-4">
         <Col md={8}>
           <h1>Shoping Cart</h1>
-          <ListGroup variant="flush">
+          <ListGroup variant="flush" >
           {Array.from({ length: 3 }).map((item,idx) => (
-            <>
-              <CartItemComponent key={idx}/> 
-            </>
+              <CartItemComponent key={idx} /> 
           ))}
           </ListGroup>
           <Alert variant="info">Your Cart is Empty</Alert>
