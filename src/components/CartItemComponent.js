@@ -1,22 +1,20 @@
 import React from "react";
-import { Button, Col, Image, ListGroupItem, Row } from "react-bootstrap";
-import { Form } from "react-router-dom";
+import { Button, Col, Image, ListGroup, Row, Form } from "react-bootstrap";
 
-function CartItemComponent() {
+const CartItemComponent = () => {
   return (
     <>
-      <ListGroupItem>
+      <ListGroup.Item>
         <Row>
           <Col md={2}>
             <Image crossOrigin="anonymous" src="/images/tablets.jpg" fluid />
           </Col>
           <Col md={2}>
-            Mac Book Series
-            <br />
-            High Performance
+            Lorem, ipsum. <br />
+            dolor sit.
           </Col>
           <Col md={2}>
-            <b>$450</b>
+            <b>$125</b>
           </Col>
           <Col md={3}>
             <Form.Select>
@@ -26,13 +24,19 @@ function CartItemComponent() {
             </Form.Select>
           </Col>
           <Col md={3}>
-            <Button type="button" variant="secondary" onClick={() => window.confirm("Are you sure")}><i className="bi bi-trash"></i></Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => window.confirm("Are you sure")}
+            >
+              <i className="bi bi-trash"></i>
+            </Button>
           </Col>
         </Row>
-      </ListGroupItem>
+      </ListGroup.Item>
+      <br />
     </>
-   
   );
-}
+};
 
 export default CartItemComponent;
