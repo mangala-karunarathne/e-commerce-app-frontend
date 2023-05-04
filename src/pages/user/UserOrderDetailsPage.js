@@ -1,5 +1,13 @@
 import React from "react";
-import { Alert, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  ListGroup,
+  Row,
+} from "react-bootstrap";
 import CartItemComponent from "../../components/CartItemComponent";
 
 const UserOrderDetailsPage = () => {
@@ -55,6 +63,22 @@ const UserOrderDetailsPage = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               Items Price (Including Tax): <span className="fw-bold">$125</span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Shipping: <span className="fw-bold">Included</span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Tax: <span className="fw-bold">Included</span>
+            </ListGroup.Item>
+            <ListGroup.Item className="text-danger">
+              Total Price: <span className="fw-bold">$900</span>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <div className="d-grid gap-2">
+                <Button size="lg" variant="danger" type="button">
+                  Pay for the Order
+                </Button>
+              </div>
             </ListGroup.Item>
           </ListGroup>
         </Col>
