@@ -4,13 +4,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const UserOrdersPage = () => {
-
-  const navigate = useNavigate();
-
-  function handleClick() {
-    navigate('/user/order-details');
-  }
-
   return (
     <Row className="m-5">
       <Col md={12}>
@@ -38,9 +31,9 @@ const UserOrdersPage = () => {
                     <i className={item}></i>
                   </td>
                   <td>
-                    {/* <Link to="/user/order-details"> */}
-                      <Button variant="primary" onClick={handleClick}>Go to order</Button>
-                    {/* </Link> */}
+                    <LinkContainer to="/user/order-details">
+                      <Button>Go to order</Button>
+                    </LinkContainer>
                   </td>
                 </tr>
               )

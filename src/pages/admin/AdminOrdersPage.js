@@ -5,11 +5,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import AdminLinksComponent from "../../components/Admin/AdminLinksComponent";
 
 const AdminOrdersPage = () => {
-  const navigate = useNavigate();
-
-  function handleClick() {
-    navigate("/user/order-details");
-  }
 
   return (
     <>
@@ -44,10 +39,9 @@ const AdminOrdersPage = () => {
                     </td>
                     <td>Paypal</td>
                     <td>
-                      <Link to="/admin/order-details">
-                        {/* <Button variant="primary" onClick={handleClick}>Go to order</Button> */}
-                        Go to order
-                      </Link>
+                      <LinkContainer to="/admin/order-details">
+                        <Button>Go to order</Button>
+                      </LinkContainer>
                     </td>
                   </tr>
                 )
