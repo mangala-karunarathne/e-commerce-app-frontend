@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  CloseButton,
+  Col,
+  Container,
+  Form,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const AdminCreateProuductPage = () => {
@@ -48,7 +57,10 @@ const AdminCreateProuductPage = () => {
               <Form.Control name="price" required type="text" min="0" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCategory">
-              <Form.Label>Category</Form.Label>
+              <Form.Label>
+                Category
+                <CloseButton />(<small>remove selected</small>)
+              </Form.Label>
               <Form.Select required name="category" aria-label="Default">
                 <option value="">Choose Category</option>
                 <option value="1">Laptops</option>
@@ -56,11 +68,93 @@ const AdminCreateProuductPage = () => {
                 <option value="3">Games</option>
               </Form.Select>
             </Form.Group>
+
+            <Form.Group controlId="formBasicNewCategory" className="mb-3 mt-3">
+              <Form.Label>
+                Or Create a new Category (Ex. Computers/Laptops/Intel)
+              </Form.Label>
+              <Form.Control name="newCategory" type="text" />
+            </Form.Group>
+
+            <Row className="mt-5">
+              <Col md={6}>
+                <Form.Group className="mb-3" controlId="formBasicAttributes">
+                  <Form.Label>Choose Attribute and set Value</Form.Label>
+                  <Form.Select
+                    required
+                    name="atrrKey"
+                    aria-label="Select Attribute"
+                  >
+                    <option>Choose Attribute</option>
+                    <option value="red">Colour</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="formBasicAttributeValue"
+                >
+                  <Form.Label>Attribute Value</Form.Label>
+                  <Form.Select
+                    required
+                    name="atrrVal"
+                    aria-label="Select Attribute Value"
+                  >
+                    <option>Choose Attribute Value</option>
+                    <option value="red">Colour</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Row>
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Attribute</th>
+                    <th>Value</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Att Key</td>
+                    <td>Att Value</td>
+                    <td>
+                      <CloseButton />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Row>
+
+            <Row>
+              <Col md={6}>
+                <Form.Group className="mb-3" controlId="formBasicNewAttribute">
+                  <Form.Label>Create new Attribute</Form.Label>
+                  <Form.Control disable={false} type="text" placeholder="First choose or Create category" name="newAttrValue"/>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-3" controlId="formBasicNewAttributeValue">
+                  <Form.Label>Attribute Value</Form.Label>
+                  <Form.Control disable={false} type="text" placeholder="First choose or Create category" name="newAttrValue"/>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Alert variant="primary">
+              After typing attribute key and value press enter on one of the field
+            </Alert>
+
             <Form.Group controlId="formFileMultiple" className="mb-3 mt-3">
               <Form.Label>Images</Form.Label>
-              <Form.Control required type="file" multiple/>
+              <Form.Control required type="file" multiple />
             </Form.Group>
-            <Button variant="primary" type="submit">Create</Button>
+            <Button variant="primary" type="submit">
+              Create
+            </Button>
           </Form>
         </Col>
       </Row>
