@@ -37,7 +37,7 @@ const AdminCreateProuductPage = () => {
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Name</Form.Label>
-              <Form.Control name="name" required />
+              <Form.Control name="name" required type="text"/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicDescription">
               <Form.Label>Description</Form.Label>
