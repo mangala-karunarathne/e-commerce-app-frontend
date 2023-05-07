@@ -25,6 +25,7 @@ import AdminEditProductPage from "./pages/admin/AdminEditProductPage";
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminOrderDetailsPage from "./pages/admin/AdminOrderDetailsPage";
 import AdminChatsPage from "./pages/admin/AdminChatsPage";
+import AdminAnalyticsPage from "./pages/admin/AdminAnalyticsPage";
 
 // Header and Footer Components:
 import FooterComponent from "./components/FooterComponent";
@@ -33,6 +34,7 @@ import HeaderComponent from "./components/HeaderComponent";
 // User Components:
 import RoutesWithUserChatComponent from "./components/user/RoutesWithUserChatComponent";
 import ScrollToTop from "./utils/ScrollToTop";
+
 
 function App() {
   return (
@@ -69,6 +71,7 @@ function App() {
         {/* Admin Protected Routes */}
         <Route element={<ProtectedRoutesComponent admin={true} />}>
           <Route path="/admin/users" element={<AdminUserPage />} />
+          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/admin/edit-user" element={<AdminEditUserPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
           <Route
