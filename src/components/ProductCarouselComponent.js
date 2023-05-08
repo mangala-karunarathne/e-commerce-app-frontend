@@ -11,6 +11,7 @@ const ProductCarouselComponent = () => {
     <Carousel>
       <Carousel.Item>
         <img
+        crossOrigin="anonymous"
           className="d-block w-100"
           src="/images/carousel/4A.png"
           alt="First slide"
@@ -25,6 +26,7 @@ const ProductCarouselComponent = () => {
       </Carousel.Item>
       <Carousel.Item>
         <img
+        crossOrigin="anonymous"
           className="d-block w-100"
           src="/images/carousel/5A.png"
           alt="Second slide"

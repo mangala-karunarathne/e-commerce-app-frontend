@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import AdminLinksComponent from "../../components/Admin/AdminLinksComponent";
 import { PureComponent } from "react";
 import {
@@ -56,18 +56,45 @@ const AdminAnalyticsPage = () => {
       <Col md={2}>
         <AdminLinksComponent />
       </Col>
-      <Col md={10} width="100%" height="100%">
+      <Col md={10}>
         <h1>Black Friday Cumulative Revenue 11/26/2023 vs 11/27/2022</h1>
+        <Form.Group controlId="firstDataToCompare">
+          <Form.Label>Select First Data To Compare</Form.Label>
+          <Form.Control
+            type="date"
+            name="firstDateToCompare"
+            placeholder="First Dare to Compare"
+          />
+        </Form.Group>
+        <br/>
+        <Form.Group controlId="secondDataToCompare">
+          <Form.Label>Select Second Data To Compare</Form.Label>
+          <Form.Control
+            type="date"
+            name="secondDateToCompare"
+            placeholder="Second Dare to Compare"
+          />
+        </Form.Group>
         <ResponsiveContainer width="100%" height={500}>
           <LineChart
             data={data}
             margin={{ top: 5, right: 30, left: 20, bottoom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis label={{value:"REVENUE", angle:-90, position:"insideLeft"}}/>
+            <XAxis
+              dataKey="name"
+              label={{
+                value: "TIME",
+                offset: 50,
+                position: "insideBottomRight",
+              }}
+              allowDuplicatedCategory={false}
+            />
+            <YAxis
+              label={{ value: "REVENUE", angle: -90, position: "insideLeft" }}
+            />
             <Tooltip />
-            <Legend  verticalAlign="top" height={36}/>
+            <Legend verticalAlign="top" height={36} />
             <Line
               type="monotone"
               dataKey="2022 year"
