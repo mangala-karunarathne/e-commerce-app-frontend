@@ -16,46 +16,39 @@ import {
 const AdminAnalyticsPage = () => {
   const data = [
     {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      name: "12:00 AM",
+      "2022 year": 4000,
+      "2023 year": 2400,
     },
     {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      name: "01:00 AM",
+      "2022 year": 3000,
+      "2023 year": 1398,
     },
     {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      name: "02:00 AM",
+      "2022 year": 2000,
+      "2023 year": 9800,
     },
     {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      name: "03:00 AM",
+      "2022 year": 2780,
+      "2023 year": 3908,
     },
     {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
+      name: "04:00 AM",
+      "2022 year": 1890,
+      "2023 year": 4800,
     },
     {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
+      name: "05:00 AM",
+      "2022 year": 2390,
+      "2023 year": 3800,
     },
     {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "06:00 AM",
+      "2022 year": 3490,
+      "2023 year": 4300,
     },
   ];
   return (
@@ -72,20 +65,21 @@ const AdminAnalyticsPage = () => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis label={{value:"REVENUE", angle:-90, position:"insideLeft"}}/>
             <Tooltip />
-            <Legend />
+            <Legend  verticalAlign="top" height={36}/>
             <Line
               type="monotone"
-              dataKey="pv"
+              dataKey="2022 year"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
+              strokeWidth={4}
             />
             <Line
               type="monotone"
-              dataKey="uv"
+              dataKey="2023 year"
               stroke="#82ca9d"
-            
+              strokeWidth={4}
             />
           </LineChart>
         </ResponsiveContainer>
