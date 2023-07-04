@@ -1,0 +1,1 @@
+console.log([{rating:5}, {rating:4}].map((item)=>Number(item.rating)).reduce((sum, item) => sum+item, 0)/2);
