@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import AdminLinksComponent from "../../components/Admin/AdminLinksComponent";
-
-const deleteHandler = () => {
-  if(window.confirm("Are you sure?")) alert("User Deletet !");
-}
+import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
 
 const UserPageComponent = () => {
+  const [counter, setCounter] = useState(0);
+
+  const deleteHandler = () => {
+    setCounter(counter + 1);
+    // if (window.confirm("Are you sure?")) alert("User Deletet !");
+  };
+
+  useEffect(() => {
+    setCounter(counter + 1);
+    console.log("userEffect Called");
+  }, []);
 
   return (
     <>
@@ -17,7 +23,8 @@ const UserPageComponent = () => {
           <AdminLinksComponent />
         </Col>
         <Col md={10}>
-          <h1>User List</h1>
+          <h1>User List {counter}</h1>
+          {console.log("HTML Rendered")}
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -47,8 +54,12 @@ const UserPageComponent = () => {
                         </Button>
                       </LinkContainer>
                       {" / "}
-                      <Button variant="danger" className="btn-sm" onClick={deleteHandler}>
-                      <i className="bi bi-x-circle"></i>
+                      <Button
+                        variant="danger"
+                        className="btn-sm"
+                        onClick={deleteHandler}
+                      >
+                        <i className="bi bi-x-circle"></i>
                       </Button>
                     </td>
                   </tr>
