@@ -3,17 +3,15 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
 
-const UserPageComponent = () => {
-  const [counter, setCounter] = useState(0);
+const UserPageComponent = ({ fetchUsers }) => {
+  const [users, setUsers] = useState([]);
 
   const deleteHandler = () => {
-    setCounter(counter + 1);
-    // if (window.confirm("Are you sure?")) alert("User Deletet !");
+    if (window.confirm("Are you sure?")) alert("User Deletet !");
   };
 
   useEffect(() => {
-    setCounter(counter + 1);
-    console.log("userEffect Called");
+    fetchUsers().then(res=>setUsers(res));
   }, []);
 
   return (
@@ -23,8 +21,8 @@ const UserPageComponent = () => {
           <AdminLinksComponent />
         </Col>
         <Col md={10}>
-          <h1>User List {counter}</h1>
-          {console.log("HTML Rendered")}
+          <h1>User List</h1>
+          {console.log(users)}
           <Table striped bordered hover responsive>
             <thead>
               <tr>
