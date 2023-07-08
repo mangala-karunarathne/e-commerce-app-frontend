@@ -7,12 +7,16 @@ const UserPageComponent = ({ fetchUsers }) => {
   const [users, setUsers] = useState([]);
 
   const deleteHandler = () => {
-    if (window.confirm("Are you sure?")) alert("User Deletet !");
+    if (window.confirm("Are you sure?")) alert("User Deleted !");
   };
 
   useEffect(() => {
     const abortctrl = new AbortController();
-    fetchUsers(abortctrl).then((res) => setUsers(res));
+    fetchUsers(abortctrl)
+      .then((res) => setUsers(res))
+      .catch((err) =>
+        console.log(err.response.data.message ? err.response.data.message : err.response.data)
+      );
     return () => abortctrl.abort();
   }, []);
 
@@ -24,7 +28,6 @@ const UserPageComponent = ({ fetchUsers }) => {
         </Col>
         <Col md={10}>
           <h1>User List</h1>
-          {console.log(users)}
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -37,18 +40,18 @@ const UserPageComponent = ({ fetchUsers }) => {
               </tr>
             </thead>
             <tbody>
-              {["bi bi-check-lg text-success", "bi bi-x-lg text-danger"].map(
-                (item, idx) => (
+              {users.map(
+                (user, idx) => (
                   <tr key={idx}>
                     <td>{idx + 1}</td>
-                    <td>Mangala </td>
-                    <td>Karuarathne</td>
-                    <td>mangalaicc@gmail.com</td>
+                    <td>{user.name}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
                     <td>
-                      <i className={item}></i>
+                      {user.isAdmin ? <i className="bi bi-check-lg text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}
                     </td>
                     <td>
-                      <LinkContainer to="/admin/edit-user">
+                      <LinkContainer to={`/admin/edit-user/${user._id}`}>
                         <Button className="btn-sm">
                           <i className="bi bi-pencil-square"></i>
                         </Button>
