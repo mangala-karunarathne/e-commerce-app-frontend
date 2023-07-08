@@ -1,15 +1,16 @@
 import UserPageComponent from "./components/UserPageComponent";
-import axios from "axios"
 
-const fetchUsers = async () => {
-  const {data} = await axios.get("/api/users");
-  return data
+import axios from "axios";
+
+const fetchUsers = async (abctrl) => {
+    const {data} = await axios.get("/api/users", {
+        signal: abctrl.signal,
+    });
+    return data
+}
+const AdminUsersPage = () => {
+  return <UserPageComponent fetchUsers={fetchUsers} />;
 };
 
-fetchUsers();
+export default AdminUsersPage;
 
-const AdminUserPage = () => {
-  return <UserPageComponent fetchUsers={fetchUsers}/>;
-};
-
-export default AdminUserPage;
