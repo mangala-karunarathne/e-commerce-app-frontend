@@ -3,18 +3,32 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
 
-const UserPageComponent = ({ fetchUsers }) => {
+const UserPageComponent = ({ fetchUsers, deleteUser }) => {
   const [users, setUsers] = useState([]);
+  const [userDeleted, setUserDeleted] = useState(false);
 
-  const deleteHandler = () => {
-    if (window.confirm("Are you sure?")) alert("User Deletet !");
+  const deleteHandler = async (userId) => {
+    if (window.confirm("Are you sure?")) {
+      const data = await deleteUser(userId); // response of delete request assign to a variable
+      if (data === "User Removed") {
+        setUserDeleted(!userDeleted); // Initially userDeleted is false now set as true or else directly put as true. Both are correct.
+      }
+    }
   };
 
   useEffect(() => {
     const abortctrl = new AbortController();
-    fetchUsers(abortctrl).then((res) => setUsers(res));
+    fetchUsers(abortctrl)
+      .then((res) => setUsers(res))
+      .catch((err) =>
+        console.log(
+          err.response.data.message
+            ? err.response.data.message
+            : err.response.data
+        )
+      );
     return () => abortctrl.abort();
-  }, []);
+  }, [userDeleted]);
 
   return (
     <>
@@ -24,7 +38,6 @@ const UserPageComponent = ({ fetchUsers }) => {
         </Col>
         <Col md={10}>
           <h1>User List</h1>
-          {console.log(users)}
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -37,34 +50,36 @@ const UserPageComponent = ({ fetchUsers }) => {
               </tr>
             </thead>
             <tbody>
-              {["bi bi-check-lg text-success", "bi bi-x-lg text-danger"].map(
-                (item, idx) => (
-                  <tr key={idx}>
-                    <td>{idx + 1}</td>
-                    <td>Mangala </td>
-                    <td>Karuarathne</td>
-                    <td>mangalaicc@gmail.com</td>
-                    <td>
-                      <i className={item}></i>
-                    </td>
-                    <td>
-                      <LinkContainer to="/admin/edit-user">
-                        <Button className="btn-sm">
-                          <i className="bi bi-pencil-square"></i>
-                        </Button>
-                      </LinkContainer>
-                      {" / "}
-                      <Button
-                        variant="danger"
-                        className="btn-sm"
-                        onClick={deleteHandler}
-                      >
-                        <i className="bi bi-x-circle"></i>
+              {users.map((user, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    {user.isAdmin ? (
+                      <i className="bi bi-check-lg text-success"></i>
+                    ) : (
+                      <i className="bi bi-x-lg text-danger"></i>
+                    )}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/admin/edit-user/${user._id}`}>
+                      <Button className="btn-sm">
+                        <i className="bi bi-pencil-square"></i>
                       </Button>
-                    </td>
-                  </tr>
-                )
-              )}
+                    </LinkContainer>
+                    {" / "}
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(user._id)}
+                    >
+                      <i className="bi bi-x-circle"></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Col>
