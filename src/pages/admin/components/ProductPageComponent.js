@@ -4,26 +4,32 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
 
-const deleteHandler = () => {
-  if (window.confirm(" Are you sure ? ")) alert(" Product has been deleted");
-};
-
-const ProductPageComponent = ({ fetchProducts }) => {
+const ProductPageComponent = ({ fetchProducts, deleteProduct }) => {
   const [products, setProducts] = useState([]);
+  const [productDeleted, setProductDeleted] = useState(false);
+ 
+  const deleteHandler = async(productId) => {
+    if (window.confirm(" Are you sure ? ")) {
+      const data = await deleteProduct(productId)
+      if(data.message === 'Product removed'){
+        setProductDeleted(!productDeleted)
+      }
+    }
+  };
 
   useEffect(() => {
     const abrtctrl = new AbortController();
     fetchProducts(abrtctrl)
       .then((res) => setProducts(res))
       .catch((err) =>
-        console.log(
-          err.response.data.message
+        setProducts([
+          {name: err.response.data.message
             ? err.response.data.message
-            : err.response.data
-        )
+            : err.response.data}
+        ])
       );
     return () => abrtctrl.abort();
-  }, []);
+  }, [productDeleted]);
 
   return (
     <>
@@ -67,7 +73,7 @@ const ProductPageComponent = ({ fetchProducts }) => {
                     <Button
                       variant="danger"
                       className="btn-sm"
-                      onClick={deleteHandler}
+                      onClick={() => deleteHandler(item._id)}
                     >
                       <i className="bi bi-x-circle"></i>
                     </Button>

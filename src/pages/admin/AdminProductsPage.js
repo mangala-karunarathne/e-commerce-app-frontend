@@ -9,8 +9,12 @@ const fetchProducts = async (abrtctrl) => {
   return data;
 };
 
+const deleteProduct = async(productId)=>{
+  const {data} = axios.delete(`/api/products/admin/${productId}`)
+  return data
+}
 const AdminProductsPage = () => {
-  return <ProductPageComponent fetchProducts={fetchProducts}/>;
+  return <ProductPageComponent fetchProducts={fetchProducts} deleteProduct={deleteProduct}/>;
 };
 
 export default AdminProductsPage;
