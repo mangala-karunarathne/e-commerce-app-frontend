@@ -7,12 +7,12 @@ import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
 const ProductPageComponent = ({ fetchProducts, deleteProduct }) => {
   const [products, setProducts] = useState([]);
   const [productDeleted, setProductDeleted] = useState(false);
- 
-  const deleteHandler = async(productId) => {
+
+  const deleteHandler = async (productId) => {
     if (window.confirm(" Are you sure ? ")) {
-      const data = await deleteProduct(productId)
-      if(data.message === 'Product removed'){
-        setProductDeleted(!productDeleted)
+      const data = await deleteProduct(productId);
+      if (data.message === "Product removed") {
+        setProductDeleted(!productDeleted);
       }
     }
   };
@@ -23,9 +23,11 @@ const ProductPageComponent = ({ fetchProducts, deleteProduct }) => {
       .then((res) => setProducts(res))
       .catch((err) =>
         setProducts([
-          {name: err.response.data.message
-            ? err.response.data.message
-            : err.response.data}
+          {
+            name: err.response.data.message
+              ? err.response.data.message
+              : err.response.data,
+          },
         ])
       );
     return () => abrtctrl.abort();
