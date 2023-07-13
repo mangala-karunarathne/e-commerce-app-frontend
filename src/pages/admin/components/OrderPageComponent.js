@@ -36,19 +36,25 @@ console.log(orders);
               </tr>
             </thead>
             <tbody>
-              {["bi bi-check-lg text-success", "bi bi-x-lg text-danger"].map(
-                (item, idx) => (
+              {orders.map(
+                (order, idx) => (
                   <tr key={idx}>
                     <td>{idx + 1}</td>
-                    <td>Mangala Karuarathne</td>
-                    <td>2022-08-15</td>
-                    <td>$125</td>
                     <td>
-                      <i className={item}></i>
+                      {order.user !== null ? ( 
+                      <>
+                        {order.user.name} {order.user.lastName}
+                      </>
+                        ) : null}
+                     </td>
+                    <td>{order.createdAt.substring(0, 10)}</td>
+                    <td>{order.orderTotal.cartSubtotal}</td>
+                    <td>
+                      {order.isDelivered ? <i className="bi bi-check-lg text-success"></i> : <i className="bi bi-check-lg text-danger"></i>}
                     </td>
-                    <td>Paypal</td>
+                    <td>{order.paymentMethod}</td>
                     <td>
-                      <LinkContainer to="/admin/order-details">
+                      <LinkContainer to={`/admin/order-details/${order._id}`}>
                         <Button>Go to order</Button>
                       </LinkContainer>
                     </td>
