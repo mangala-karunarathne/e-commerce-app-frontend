@@ -1,91 +1,14 @@
 import React from "react";
-import {
-  Alert,
-  Button,
-  Col,
-  Container,
-  Form,
-  ListGroup,
-  Row,
-} from "react-bootstrap";
-import CartItemComponent from "../../components/CartItemComponent";
+import OrderDetailsPageComponent from "./components/OrderDetailsPageComponent";
+import axios from "axios";
+
+const getOrder = async (id) => {
+  const { data } = await axios.get("/api/orders/user/" + id);
+  return data;
+};
 
 const AdminOrderDetailsPage = () => {
-  return (
-    <Container fluid>
-      <Row className="mt-4">
-        <h1>Oder Details</h1>
-        <Col md={8}>
-          <br />
-          <Row>
-            <Col md={6}>
-              <h2>Shipping</h2>
-              <b>Name</b>: Mangala Karunarathne
-              <br />
-              <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
-              <br />
-              <b>Phone</b>:+94 77 111 6788
-            </Col>
-            <Col md={6}>
-              <h2>Payment Method</h2>
-              <Form.Select disabled={false}>
-                <option value="pp">Paypal</option>
-                <option value="cod">
-                  Cash on Delivery (Delivery may be delayed)
-                </option>
-              </Form.Select>
-            </Col>
-            <Row>
-              <Col>
-                <Alert className="mt-3" variant="danger">
-                  Not Delivered
-                </Alert>
-              </Col>
-              <Col>
-                <Alert className="mt-3" variant="success">
-                  Paid on 2023-05-02
-                </Alert>
-              </Col>
-            </Row>
-          </Row>
-          <br />
-          <h2>Order Items</h2>
-          <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((idx) => (
-              <CartItemComponent key={idx} />
-            ))}
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <ListGroup>
-            <ListGroup.Item>
-              <h3>Order Summary</h3>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Items Price (Including Tax): <span className="fw-bold">$125</span>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Shipping: <span className="fw-bold">Included</span>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Tax: <span className="fw-bold">Included</span>
-            </ListGroup.Item>
-            <ListGroup.Item className="text-danger">
-              Total Price: <span className="fw-bold">$900</span>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-grid gap-2">
-                <Button size="lg" variant="danger" type="button">
-                  Mark as Delivered
-                </Button>
-              </div>
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-      </Row>
-    </Container>
-  );
+  return <OrderDetailsPageComponent getOrder={getOrder}/>;
 };
 
 export default AdminOrderDetailsPage;
-
