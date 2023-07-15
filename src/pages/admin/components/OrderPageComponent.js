@@ -50,7 +50,7 @@ console.log(orders);
                     <td>{order.createdAt.substring(0, 10)}</td>
                     <td>{order.orderTotal.cartSubtotal}</td>
                     <td>
-                      {order.isDelivered ? <i className="bi bi-check-lg text-success"></i> : <i className="bi bi-check-lg text-danger"></i>}
+                      {order.isDelivered ? <i className="bi bi-check-lg text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}
                     </td>
                     <td>{order.paymentMethod}</td>
                     <td>
