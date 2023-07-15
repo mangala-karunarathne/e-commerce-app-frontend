@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Alert,
   Button,
@@ -9,8 +9,16 @@ import {
   Row,
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
+import { useParams } from "react-router-dom";
 
-const OrderDetailsPageComponent = () => {
+const OrderDetailsPageComponent = ({ getOrder }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    getOrder(id)
+    .then((items)=>console.log(items))
+    .catch(err => console.log(err.response.data.message ? err.response.data.message : err.response.data))
+  }, [])
+  
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -51,8 +59,8 @@ const OrderDetailsPageComponent = () => {
           <br />
           <h2>Order Items</h2>
           <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((idx) => (
-              <CartItemComponent key={idx} />
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <CartItemComponent key={`item-${idx}`} />
             ))}
           </ListGroup>
         </Col>
@@ -88,4 +96,3 @@ const OrderDetailsPageComponent = () => {
 };
 
 export default OrderDetailsPageComponent;
-
