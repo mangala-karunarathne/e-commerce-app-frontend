@@ -35,6 +35,7 @@ import HeaderComponent from "./components/HeaderComponent";
 import RoutesWithUserChatComponent from "./components/user/RoutesWithUserChatComponent";
 import ScrollToTop from "./utils/ScrollToTop";
 
+export const URL = process.env.REACT_APP_SERVER_URL
 
 function App() {
   return (
