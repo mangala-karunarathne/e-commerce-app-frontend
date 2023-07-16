@@ -11,7 +11,7 @@ import {
 import CartItemComponent from "../../../components/CartItemComponent";
 import { useParams } from "react-router-dom";
 
-const OrderDetailsPageComponent = ({ getOrder }) => {
+const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   const { id } = useParams();
 
   const [userInfo, setUserInfo] = useState({});
@@ -20,7 +20,9 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
   const [isDelivered, setIsDelivered] = useState(false);
   const [cartSubTotal, setCartSubTotal] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [orderButtonMessage, setOrderButtonMessage] = useState("Mark as Delivered");
+  const [orderButtonMessage, setOrderButtonMessage] =
+    useState("Mark as Delivered");
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     getOrder(id)
@@ -36,6 +38,7 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
           setOrderButtonMessage("Order is Finished");
           setButtonDisabled(true);
         }
+        setCartItems(order.cartItems);
       })
       .catch((err) =>
         console.log(
@@ -86,7 +89,7 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
               </Col>
               <Col>
                 <Alert className="mt-3" variant={isPaid ? "success" : "danger"}>
-                 {isPaid ? <>Paid on {isPaid}</> : <>Not paid yet</>}
+                  {isPaid ? <>Paid on {isPaid}</> : <>Not paid yet</>}
                 </Alert>
               </Col>
             </Row>
@@ -94,8 +97,8 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
           <br />
           <h2>Order Items</h2>
           <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((_, idx) => (
-              <CartItemComponent key={`item-${idx}`} />
+            {cartItems.map((item, idx) => (
+              <CartItemComponent key={idx} item={item} orderCreated={true} />
             ))}
           </ListGroup>
         </Col>
@@ -105,7 +108,8 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
               <h3>Order Summary</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              Items Price (Including Tax): <span className="fw-bold">${cartSubTotal}</span>
+              Items Price (Including Tax):{" "}
+              <span className="fw-bold">${cartSubTotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
               Shipping: <span className="fw-bold">Included</span>
@@ -118,8 +122,22 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">
-                <Button size="lg" disabled={buttonDisabled} variant="danger" type="button">
-                 {orderButtonMessage}
+                <Button
+                  size="lg"
+                  onClick={() =>
+                    markAsDelivered(id)
+                      .then((res) => {
+                        if (res) {
+                          setIsDelivered(true);
+                        }
+                      })
+                      .catch((err) => console.log(err.response.data.message ? err.response.data.message : err.response.data))
+                  }
+                  disabled={buttonDisabled}
+                  variant="danger"
+                  type="button"
+                >
+                  {orderButtonMessage}
                 </Button>
               </div>
             </ListGroup.Item>
