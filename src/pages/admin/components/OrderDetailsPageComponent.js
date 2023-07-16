@@ -11,7 +11,7 @@ import {
 import CartItemComponent from "../../../components/CartItemComponent";
 import { useParams } from "react-router-dom";
 
-const OrderDetailsPageComponent = ({ getOrder }) => {
+const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   const { id } = useParams();
 
   const [userInfo, setUserInfo] = useState({});
@@ -98,7 +98,7 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
           <h2>Order Items</h2>
           <ListGroup variant="flush">
             {cartItems.map((item, idx) => (
-              <CartItemComponent key={idx} item={item} orderCreated={true}/>
+              <CartItemComponent key={idx} item={item} orderCreated={true} />
             ))}
           </ListGroup>
         </Col>
@@ -124,6 +124,15 @@ const OrderDetailsPageComponent = ({ getOrder }) => {
               <div className="d-grid gap-2">
                 <Button
                   size="lg"
+                  onClick={() =>
+                    markAsDelivered(id)
+                      .then((res) => {
+                        if (res) {
+                          setIsDelivered(true);
+                        }
+                      })
+                      .catch((err) => console.log(err.response.data.message ? err.response.data.message : err.response.data))
+                  }
                   disabled={buttonDisabled}
                   variant="danger"
                   type="button"
