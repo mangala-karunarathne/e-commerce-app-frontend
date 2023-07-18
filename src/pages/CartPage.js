@@ -19,7 +19,7 @@ const CartPage = () => {
           <h1>Shoping Cart</h1>
           <ListGroup variant="flush">
             {Array.from({ length: 3 }).map((item, idx) => (
-              <CartItemComponent key={idx} />
+              <CartItemComponent item={{image: {path: "/images/tablets.jpg"}, name: "Product Name", price: 10, count:10, quantity:10}} key={idx} />
             ))}
           </ListGroup>
           <Alert variant="info">Your Cart is Empty</Alert>

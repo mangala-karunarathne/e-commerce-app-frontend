@@ -51,8 +51,8 @@ const UserOrderDetailsPage = () => {
           <br />
           <h2>Order Items</h2>
           <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((idx) => (
-              <CartItemComponent key={idx} />
+            {Array.from({ length: 3 }).map((item, idx) => (
+              <CartItemComponent item={{image: {path: "/images/tablets.jpg"}, name: "Product Name", price: 10, count:10, quantity:10}} key={idx} />
             ))}
           </ListGroup>
         </Col>
