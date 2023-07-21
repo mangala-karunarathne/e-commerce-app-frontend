@@ -12,30 +12,36 @@ import {
 import AddedToCartMessegeComponent from "../components/AddedToCartMessegeComponent";
 import { Rating } from "react-simple-star-rating";
 import ImageZoom from "js-image-zoom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/actions/cartActions";
 
 const ProductDetailsPage = () => {
-  useEffect(() => {
+  const dispatch = useDispatch()
+  const addToCartHandler = () => {
+    dispatch(addToCart())
+  };
 
+  useEffect(() => {
     var options = {
       width: 400,
       zoomWidth: 500,
       // filContainer: true,
       // zoomPosition: "bottom",
       // scale: 2,
-      offset: {verticle:0, horizontal:0},
-    }
+      offset: { verticle: 0, horizontal: 0 },
+    };
 
-    new ImageZoom(document.getElementById("first"),options)
-    new ImageZoom(document.getElementById("second"),options)
-    new ImageZoom(document.getElementById("third"),options)
-    new ImageZoom(document.getElementById("fourth"),options)
-  })
-  
+    new ImageZoom(document.getElementById("first"), options);
+    new ImageZoom(document.getElementById("second"), options);
+    new ImageZoom(document.getElementById("third"), options);
+    new ImageZoom(document.getElementById("fourth"), options);
+  });
+
   return (
     <Container>
       <AddedToCartMessegeComponent />
       <Row className="mt-5">
-        <Col style={{zIndex:1}} md={4}>
+        <Col style={{ zIndex: 1 }} md={4}>
           <div id="first">
             <Image crosorigin="anonymous" fluid src="/images/books.jpg" />
           </div>
@@ -85,7 +91,9 @@ const ProductDetailsPage = () => {
                   </Form.Select>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button variant="danger">Add to Cart</Button>
+                  <Button onClick={addToCartHandler} variant="danger">
+                    Add to Cart
+                  </Button>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
