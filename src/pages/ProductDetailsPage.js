@@ -12,14 +12,16 @@ import {
 import AddedToCartMessegeComponent from "../components/AddedToCartMessegeComponent";
 import { Rating } from "react-simple-star-rating";
 import ImageZoom from "js-image-zoom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
 
 const ProductDetailsPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const addToCartHandler = () => {
-    dispatch(addToCart())
+    dispatch(addToCart());
   };
+
+  const products = useSelector((state) => state.cart.value);
 
   useEffect(() => {
     var options = {
@@ -58,9 +60,9 @@ const ProductDetailsPage = () => {
         <Col md={8}>
           <Row>
             <Col md={8}>
-              <ListGroup>
+              <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h1>Test Title Added here</h1>
+                  <h1>Test Title Added here {products}</h1>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Rating readonly size={20} initialValue={4} />
