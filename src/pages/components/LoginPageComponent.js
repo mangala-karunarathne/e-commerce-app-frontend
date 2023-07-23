@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 const LoginPageComponent = ({ loginUserApiRequest }) => {
   const [validated, setValidated] = useState(false);
+  const [loginUserResponseState, setLoginUserResponseState] = useState({
+    success: "",
+    error: "",
+    loading: false,
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,8 +20,21 @@ const LoginPageComponent = ({ loginUserApiRequest }) => {
     const doNotLogout = form.doNotLogout.checked;
 
     if (event.currentTarget.checkValidity() === true && email && password) {
-        loginUserApiRequest(email, password, doNotLogout)
-        .then((res)=>console.log(res)).catch((err)=>console.log(err.response.data.message? err.response.data.message : err.response.data))
+      loginUserApiRequest(email, password, doNotLogout)
+        .then((res) =>
+          setLoginUserResponseState({
+            success: res.success,
+            loading: false,
+            error: "",
+          })
+        )
+        .catch((err) =>
+          setLoginUserResponseState({
+            error: err.response.data.message
+              ? err.response.data.message
+              : err.response.data,
+          })
+        );
     }
 
     setValidated(true);
@@ -59,16 +77,27 @@ const LoginPageComponent = ({ loginUserApiRequest }) => {
             </Row>
 
             <Button variant="primary" type="submit">
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
+              {loginUserResponseState &&
+              loginUserResponseState.loading === true ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                ""
+              )}
               Login
             </Button>
-            <Alert show={true} variant="danger">
+            <Alert
+              show={
+                loginUserResponseState &&
+                loginUserResponseState.error === "Wrong Credentials"
+              }
+              variant="danger"
+            >
               Credentials do not Match !
             </Alert>
           </Form>
