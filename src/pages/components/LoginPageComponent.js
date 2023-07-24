@@ -2,7 +2,10 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-const LoginPageComponent = ({ loginUserApiRequest }) => {
+import { setReduxUserState } from './../../redux/actions/userActions';
+
+
+const LoginPageComponent = ({ loginUserApiRequest, reduxDispatch, setReduxUserState }) => {
   const [validated, setValidated] = useState(false);
   const [loginUserResponseState, setLoginUserResponseState] = useState({
     success: "",
@@ -29,6 +32,10 @@ const LoginPageComponent = ({ loginUserApiRequest }) => {
             loading: false,
             error: "",
           });
+
+          if(res.userLoggedIn){
+            reduxDispatch(setReduxUserState(res.userLoggedIn))
+          }
 
           if (res.success === "User Logged in" && !res.userLoggedIn.isAdmin)
             navigate("/user", { replace: true });
