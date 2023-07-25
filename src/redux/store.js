@@ -10,11 +10,21 @@ const reducer = combineReducers({
   userRegisterLogin: userRegisterLoginReducer,
 });
 
+const INITIAL_STATE = {
+  cart:{
+    value:0,
+  },
+  userRegisterLogin:{
+    userInfo: 'user data'
+  }
+  
+}
+
 const middleware = [thunk];
 
 const store = createStore(
   reducer,
-  { cart: { value: 0 } },
+  INITIAL_STATE,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
