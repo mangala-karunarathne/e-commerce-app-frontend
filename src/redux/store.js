@@ -10,12 +10,14 @@ const reducer = combineReducers({
   userRegisterLogin: userRegisterLoginReducer,
 });
 
+const userInfoInLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem("userInfo")) : {}
+
 const INITIAL_STATE = {
   cart:{
     value:0,
   },
   userRegisterLogin:{
-    userInfo: 'user data'
+    userInfo: userInfoInLocalStorage
   }
   
 }
