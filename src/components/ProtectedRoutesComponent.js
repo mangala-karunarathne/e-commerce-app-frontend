@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import UserChatComponent from "./user/UserChatComponent";
+import LoginPage from "./../pages/LoginPage";
 
 const ProtectedRoutesComponent = ({ admin }) => {
-  if (admin) {
-    let adminAuth = true;
-    return adminAuth ? <Outlet /> : <Navigate to="/login" />;
-  } else {
-    let userAuth = true;
-    return userAuth ? (
-      <>
-        <Outlet />
-      </>
-    ) : (
-      <Navigate to="/login" />
-    );
-  }
+  const [isAuth, setIsAuth] = useState();
+  if (isAuth === undefined) return <LoginPage />;
+
+  return isAuth && admin && isAuth !== "admin" ? (
+    <Navigate to="/login" />
+  ) : isAuth && admin ? (
+    <Outlet />
+  ) : isAuth && !admin ? (
+    <>
+      <UserChatComponent />
+      <Outlet />
+    </>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 export default ProtectedRoutesComponent;
