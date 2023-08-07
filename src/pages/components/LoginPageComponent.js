@@ -25,6 +25,7 @@ const LoginPageComponent = ({ loginUserApiRequest, reduxDispatch, setReduxUserSt
     const doNotLogout = form.doNotLogout.checked;
 
     if (event.currentTarget.checkValidity() === true && email && password) {
+      setLoginUserResponseState({ loading: true});
       loginUserApiRequest(email, password, doNotLogout)
         .then((res) => {
           setLoginUserResponseState({
@@ -32,7 +33,6 @@ const LoginPageComponent = ({ loginUserApiRequest, reduxDispatch, setReduxUserSt
             loading: false,
             error: "",
           });
-
           if(res.userLoggedIn){
             reduxDispatch(setReduxUserState(res.userLoggedIn))
           }
