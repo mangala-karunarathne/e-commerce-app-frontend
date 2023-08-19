@@ -29,6 +29,8 @@ import Cookies from "js-cookie";
 
 const loginUserApiRequest = async (email, password, doNotLogout) => {
   try {
+<<<<<<< HEAD
+<<<<<<< HEAD
     const { data } = await axios.post(
       `${URL}/api/users/login`,
       { email, password, doNotLogout },
@@ -41,6 +43,22 @@ const loginUserApiRequest = async (email, password, doNotLogout) => {
       localStorage.setItem("access_token", JSON.stringify(data.access_token));
     else
       sessionStorage.setItem("access_token", JSON.stringify(data.access_token));
+=======
+=======
+>>>>>>> c9deaa716ddfdbb688b91907f25c844db31f7081
+    const { data} = await axios.post(
+      `${URL}/api/users/login`,
+      { email, password, doNotLogout }
+    );
+// access_token isse
+// accessing cookies coused issue due to unawareness, so tried to get access_token as just a response
+    if (data.userLoggedIn.doNotLogout && data.access_token)
+      localStorage.setItem("access_token", JSON.stringify(data.access_token));
+    else sessionStorage.setItem("access_token", JSON.stringify(data.access_token));
+<<<<<<< HEAD
+>>>>>>> c9deaa7 (BUG | access_token Issue)
+=======
+>>>>>>> c9deaa716ddfdbb688b91907f25c844db31f7081
 
     if (data.userLoggedIn.doNotLogout)
       localStorage.setItem("userInfo", JSON.stringify(data.userLoggedIn));
