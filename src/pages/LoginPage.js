@@ -29,6 +29,7 @@ import Cookies from "js-cookie";
 
 const loginUserApiRequest = async (email, password, doNotLogout) => {
   try {
+
     const { data } = await axios.post(
       `${URL}/api/users/login`,
       { email, password, doNotLogout },
