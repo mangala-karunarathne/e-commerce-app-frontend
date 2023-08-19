@@ -67,8 +67,7 @@ function App() {
             <Route path="/user/my-orders" element={<UserOrdersPage />} />
             {/* </Route> */}
           </Route>
-        </Route>
-        
+        </Route>  
         {/* Admin Protected Routes */}
         <Route element={<ProtectedRoutesComponent admin={true} />}>
           <Route path="/admin/users" element={<AdminUserPage />} />
@@ -78,6 +77,7 @@ function App() {
           <Route
             path="/admin/create-new-product"
             element={<AdminCreateProuductPage />}
+      
           />
           <Route
             path="/admin/edit-product"

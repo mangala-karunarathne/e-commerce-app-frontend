@@ -19,7 +19,7 @@ import { logout } from "../redux/actions/userActions";
 export default function HeaderComponent() {
   const dispatch = useDispatch();
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar className="z-10" collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand href="/">MK Online Shop</Navbar.Brand>
