@@ -10,12 +10,12 @@ export const setReduxUserState = (userCreated) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  // document.location.href = "/login";
+  document.location.href = "/login";
   axios.get(`${URL}/api/logout`);
   localStorage.removeItem("access_token");
   localStorage.removeItem("userInfo");
   sessionStorage.removeItem("userInfo");
   sessionStorage.removeItem("access_token");
   localStorage.removeItem("cart");
-  dispatch({type: LOGOUT_USER})
+  dispatch({ type: LOGOUT_USER });
 };

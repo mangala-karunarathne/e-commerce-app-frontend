@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/actions/userActions";
 
 const UserPageComponent = ({ fetchUsers, deleteUser }) => {
   const [users, setUsers] = useState([]);
@@ -16,16 +18,19 @@ const UserPageComponent = ({ fetchUsers, deleteUser }) => {
     }
   };
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const abortctrl = new AbortController();
     fetchUsers(abortctrl)
       .then((res) => setUsers(res))
       .catch((err) =>
-        console.log(
-          err.response.data.message
-            ? err.response.data.message
-            : err.response.data
-        )
+      dispatch(logout())
+        // console.log(
+        //   err.response.data.message
+        //     ? err.response.data.message
+        //     : err.response.data
+        // )
       );
     return () => abortctrl.abort();
   }, [userDeleted]);

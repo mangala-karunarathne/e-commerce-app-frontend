@@ -10,6 +10,8 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
 import { useParams } from "react-router-dom";
+import { logout } from "../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   const { id } = useParams();
@@ -23,6 +25,8 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   const [orderButtonMessage, setOrderButtonMessage] =
     useState("Mark as Delivered");
   const [cartItems, setCartItems] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getOrder(id)
@@ -40,12 +44,13 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
         }
         setCartItems(order.cartItems);
       })
-      .catch((err) =>
-        console.log(
-          err.response.data.message
-            ? err.response.data.message
-            : err.response.data
-        )
+      .catch(
+        (err) => dispatch(logout())
+        // console.log(
+        //   err.response.data.message
+        //     ? err.response.data.message
+        //     : err.response.data
+        // )
       );
   }, [isDelivered, id]);
 
@@ -131,7 +136,13 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
                           setIsDelivered(true);
                         }
                       })
-                      .catch((err) => console.log(err.response.data.message ? err.response.data.message : err.response.data))
+                      .catch((err) =>
+                        console.log(
+                          err.response.data.message
+                            ? err.response.data.message
+                            : err.response.data
+                        )
+                      )
                   }
                   disabled={buttonDisabled}
                   variant="danger"
