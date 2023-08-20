@@ -5,7 +5,12 @@ import { URL } from "../../App";
 
 
 const getOrders = async() => {
-  const {data} = await axios.get(`${URL}/api/orders/admin`)
+  const config = {
+    headers: {
+      Authorization: sessionStorage.getItem("access_token") || localStorage.getItem("access_token"),
+    },
+  };
+  const {data} = await axios.get(`${URL}/api/orders/admin`,config)
   return data
 }
 

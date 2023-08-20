@@ -5,49 +5,8 @@ import LoginPage from "./../pages/LoginPage";
 import axios from "axios";
 import { URL } from "../App";
 import Cookies from "js-cookie";
-// access_token issue
-// This api route is called when success login user / admin goes to their role based routes in React(FE) App.js.... At that routes are wrapped by protected routes component and inside there authenticated user role going to check by calling this API. Already it simulated without using this get token API. Here it's going to use cookies intead of token as headers. 
 
-// const ProtectedRoutesComponent = ({ admin }) => {
-//   const [isAuth, setIsAuth] = useState();
-
-//   useEffect(() => {
-//     const access_token = localStorage.getItem("access_token");
-//     axios
-//       .get(`${URL}/api/get-token`, {
-//         headers: {
-//           Authorization: `Bearer ${access_token}`,
-//         },
-//       })
-//       .then(function (response) {
-//         if (response.data.token) {
-//           setIsAuth(response.data.token);
-//         }
-//       })
-//       .catch(function (error) {
-//         console.error("An error occurred:", error);
-//       });
-//   }, [isAuth]);
-
-//   if (isAuth === undefined && !admin) return <Navigate to="/user/my-orders" />;
-//   if (isAuth === undefined && admin) return <Navigate to="/admin/orders" />;
-
-//   // if (isAuth === undefined) return <LoginPage />;
-
-//   // return isAuth && admin && isAuth !== "admin" ? (
-//   //   <Navigate to="/login" />
-//   // ) : isAuth && admin ? (
-//   //   <Outlet />
-//   // ) : isAuth && !admin ? (
-//   //   <>
-//   //     <UserChatComponent />
-//   //     <Outlet />
-//   //   </>
-//   // ) : (
-//   //   <Navigate to="/login" />
-//   // );
-// };
-// export default ProtectedRoutesComponent;
+// This componenet already used for roled based routing in frontend but now instead of cookies we are using request headers. So removed the wrapping with this protected component and then no longer calling this component and entire roled based authentication goes with backend APIz along with request headers 
 
 const ProtectedRoutesComponent = ({ admin }) => {
   const [isAuth, setIsAuth] = useState();
@@ -68,13 +27,13 @@ const ProtectedRoutesComponent = ({ admin }) => {
   useEffect(() => {
     const accessToken = getAccessToken();
     // axios.post(`${URL}/api/get-token`, {token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGIzNmY0Y2ExNTMwNTg2MmZkMjQ4NjkiLCJuYW1lIjoiYWRtaW4iLCJsYXN0TmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2OTE3Njc0MTEsImV4cCI6MTY5MTc5MjYxMX0.HjMYvZrCLvEDEk3UN9LGsbBfdDOBiKd8tR50BI--3r4"}).then((data) => {
-    axios.post(`${URL}/api/get-token`, { token: accessToken }).then((data) => {
-      console.log("Response :", data);
-      if (data.data.token) {
-        setIsAuth(data.data.token);
-      }
-      return isAuth;
-    });
+    // axios.post(`${URL}/api/get-token`, { token: accessToken }).then((data) => {
+    //   console.log("Response :", data);
+    //   if (data.data.token) {
+    //     setIsAuth(data.data.token);
+    //   }
+    //   return isAuth;
+    // });
   }, [isAuth]);
 
   if (isAuth === undefined) return <LoginPage />;

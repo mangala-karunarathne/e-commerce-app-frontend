@@ -57,7 +57,7 @@ function App() {
           <Route path="*" element="404 | Page Not Found " />
 
           {/* User Protected Routes */}
-          <Route element={<ProtectedRoutesComponent admin={false} />}>
+          {/* <Route element={<ProtectedRoutesComponent admin={false} />}> */}
             <Route path="/user" element={<UserProfilePage />} />
             <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
             <Route
@@ -66,10 +66,10 @@ function App() {
             />
             <Route path="/user/my-orders" element={<UserOrdersPage />} />
             {/* </Route> */}
-          </Route>
+          {/* </Route> */}
         </Route>  
         {/* Admin Protected Routes */}
-        <Route element={<ProtectedRoutesComponent admin={true} />}>
+        {/* <Route element={<ProtectedRoutesComponent admin={true} />}> */}
           <Route path="/admin/users" element={<AdminUserPage />} />
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/admin/edit-user" element={<AdminEditUserPage />} />
@@ -89,7 +89,7 @@ function App() {
             element={<AdminOrderDetailsPage />}
           />
           <Route path="/admin/chats" element={<AdminChatsPage />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
       <FooterComponent />
     </BrowserRouter>
