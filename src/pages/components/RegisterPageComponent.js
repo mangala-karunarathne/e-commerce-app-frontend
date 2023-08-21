@@ -1,25 +1,44 @@
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Spinner from 'react-bootstrap/Spinner'
-const RegisterPageComponent = () => {
+import Spinner from "react-bootstrap/Spinner";
+const RegisterPageComponent = ({ registerUserApiRequest }) => {
   const [validated, setValidated] = useState(false);
 
-const onChange = () => {
-  const password = document.querySelector("input[name=password]")
-  const confirm = document.querySelector("input[name=confirmPassword]")
-  if(confirm.value === password.value){
-    confirm.setCustomValidity("")
-  }else{
-    confirm.setCustomValidity("Passwords do not match")
-  }
-}
+  const onChange = () => {
+    const password = document.querySelector("input[name=password]");
+    const confirm = document.querySelector("input[name=confirmPassword]");
+    if (confirm.value === password.value) {
+      confirm.setCustomValidity("");
+    } else {
+      confirm.setCustomValidity("Passwords do not match");
+    }
+  };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
+    const form = event.currentTarget.elements;
+    const email = form.email.value;
+    const name = form.name.value;
+    const lastName = form.lastName.value;
+    const password = form.password.value;
+    if (
+      event.currentTarget.checkValidity() === true &&
+      email &&
+      password &&
+      name &&
+      lastName
+    ) {
+      registerUserApiRequest(name, lastName, email, password)
+        .then((res) => console.log(res))
+        .catch((err) =>
+          console.log({
+            error: err.response.data.message
+              ? err.response.data.message
+              : err.response.data,
+          })
+        );
     }
 
     setValidated(true);
@@ -116,10 +135,10 @@ const onChange = () => {
               Submit
             </Button>
             <Alert show={true} variant="danger">
-                User with that email already exists!
+              User with that email already exists!
             </Alert>
             <Alert show={true} variant="info">
-                User created
+              User created
             </Alert>
           </Form>
         </Col>
@@ -129,4 +148,3 @@ const onChange = () => {
 };
 
 export default RegisterPageComponent;
-
