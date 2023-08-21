@@ -3,15 +3,22 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/actions/userActions";
 
 const OrderPageComponent = ({getOrders}) => {
 
 const [orders, setOrders] = useState([])
 
+const dispatch = useDispatch();
+
 useEffect(() => {
     getOrders()
     .then((orders)=> setOrders(orders))
-    .catch(err=>console.log(err.response.data.message ? err.response.data.message : err.response.data))
+    .catch(err=>
+      dispatch(logout())
+      // console.log(err.response.data.message ? err.response.data.message : err.response.data)
+      )
 }, [])
 console.log(orders);
 

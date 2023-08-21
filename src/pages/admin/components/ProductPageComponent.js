@@ -3,6 +3,8 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AdminLinksComponent from "../../../components/Admin/AdminLinksComponent";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/actions/userActions";
 
 const ProductPageComponent = ({ fetchProducts, deleteProduct }) => {
   const [products, setProducts] = useState([]);
@@ -17,18 +19,21 @@ const ProductPageComponent = ({ fetchProducts, deleteProduct }) => {
     }
   };
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const abrtctrl = new AbortController();
     fetchProducts(abrtctrl)
       .then((res) => setProducts(res))
       .catch((err) =>
-        setProducts([
-          {
-            name: err.response.data.message
-              ? err.response.data.message
-              : err.response.data,
-          },
-        ])
+      dispatch(logout())
+        // setProducts([
+        //   {
+        //     name: err.response.data.message
+        //       ? err.response.data.message
+        //       : err.response.data,
+        //   },
+        // ])
       );
     return () => abrtctrl.abort();
   }, [productDeleted]);
