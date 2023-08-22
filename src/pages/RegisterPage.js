@@ -3,14 +3,7 @@ import RegisterPageComponent from "./components/RegisterPageComponent";
 import { URL } from "../App";
 
 const registerUserApiRequest = async (name, lastName, email, password) => {
-  const config = {
-    headers: {
-      Authorization:
-        sessionStorage.getItem("access_token") ||
-        localStorage.getItem("access_token"),
-    },
-  };
-  const { data } = await axios.post(`${URL}/api/users/register`, config, {
+  const { data } = await axios.post(`${URL}/api/users/register`, {
     name,
     lastName,
     email,
