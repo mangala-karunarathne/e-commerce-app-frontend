@@ -1,6 +1,8 @@
 import axios from "axios";
 import RegisterPageComponent from "./components/RegisterPageComponent";
 import { URL } from "../App";
+import { useDispatch } from "react-redux";
+import { setReduxUserState } from "../redux/actions/userActions";
 
 const registerUserApiRequest = async (name, lastName, email, password) => {
   const { data } = await axios.post(`${URL}/api/users/register`, {
@@ -13,7 +15,10 @@ const registerUserApiRequest = async (name, lastName, email, password) => {
 };
 
 const RegisterPage = () => {
-  return <RegisterPageComponent registerUserApiRequest={registerUserApiRequest}/>;
+  const reduxDispatch = useDispatch();
+  return (
+    <RegisterPageComponent registerUserApiRequest={registerUserApiRequest} reduxDispatch={reduxDispatch} setReduxUserState={setReduxUserState}/>
+  );
 };
 
 export default RegisterPage;
