@@ -1,7 +1,7 @@
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 
-const UserProfilePageComponent = () => {
+const UserProfilePageComponent = ({ updateUserApiRequest }) => {
   const [validated, setValidated] = useState(false);
 
   const onChange = () => {
@@ -15,10 +15,24 @@ const UserProfilePageComponent = () => {
   };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
+    const form = event.currentTarget.elements;
+
+    const name = form.name.value;
+    const lastName = form.lastName.value;
+    const phoneNumber = form.phoneNumber.value;
+    const address = form.address.value;
+    const country = form.country.value;
+    const zipCode = form.zipCode.value;
+    const city = form.city.value;
+    const state = form.state.value;
+    const password = form.password.value;
+
+    if (event.currentTarget.checkValidity() === true && form.password.value === form.confirmPassword.value) {
+      updateUserApiRequest(name, lastName, phoneNumber, address, country, zipCode, city, state, password).then(data => {
+        console.log(data);
+      })
     }
 
     setValidated(true);
@@ -67,6 +81,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your Phone Number"
                 defaultValue=""
+                name="phoneNumber"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicAddress">
@@ -75,6 +90,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your Addrress"
                 defaultValue=""
+                name="address"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCountry">
@@ -83,6 +99,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your Country"
                 defaultValue=""
+                name="country"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicZip">
@@ -91,6 +108,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your Zip Code"
                 defaultValue=""
+                name="zipCode"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCity">
@@ -99,6 +117,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your City"
                 defaultValue=""
+                name="city"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicState">
@@ -107,6 +126,7 @@ const UserProfilePageComponent = () => {
                 type="text"
                 placeholder="Enter Your State"
                 defaultValue=""
+                name="state"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -140,7 +160,9 @@ const UserProfilePageComponent = () => {
                 Both passwords should match
               </Form.Control.Feedback>
             </Form.Group>
-            <Button variant="primary" type="submit">Update</Button>
+            <Button variant="primary" type="submit">
+              Update
+            </Button>
             <Alert show={true} variant="danger">
               User with that email already exists!
             </Alert>
