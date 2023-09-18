@@ -29,10 +29,23 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
     const state = form.state.value;
     const password = form.password.value;
 
-    if (event.currentTarget.checkValidity() === true && form.password.value === form.confirmPassword.value) {
-      updateUserApiRequest(name, lastName, phoneNumber, address, country, zipCode, city, state, password).then(data => {
+    if (
+      event.currentTarget.checkValidity() === true &&
+      form.password.value === form.confirmPassword.value
+    ) {
+      updateUserApiRequest(
+        name,
+        lastName,
+        phoneNumber,
+        address,
+        country,
+        zipCode,
+        city,
+        state,
+        password
+      ).then(data => {
         console.log(data);
-      })
+      });
     }
 
     setValidated(true);
@@ -70,7 +83,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
-                name="email"
+                // name="email"
                 disabled
                 value="manglaicc@gmail.com  : if you want to change this mail remove this mail and register again with new email"
               />
@@ -140,7 +153,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                 onChange={onChange}
               />
               <Form.Control.Feedback type="invalid">
-                Please anter a valid password
+                Please enter a valid password
               </Form.Control.Feedback>
               <Form.Text className="text-muted">
                 Password should have at least 6 characters

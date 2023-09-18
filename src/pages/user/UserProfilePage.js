@@ -10,6 +10,7 @@ const UserProfilePage = () => {
         localStorage.getItem("access_token"),
     },
   };
+  console.log("config", config);
 
   const updateUserApiRequest = async (
     name,
@@ -22,20 +23,31 @@ const UserProfilePage = () => {
     state,
     password
   ) => {
-    const { data } = await axios.put(`${URL}/api/users/profile`, config, {
-      name,
-      lastName,
-      phoneNumber,
-      address,
-      country,
-      zipCode,
-      city,
-      state,
-      password,
-    });
-    return data;
+    try {
+      const { data } = await axios.put(
+        `${URL}/api/users/profile`,
+        {
+          name,
+          lastName,
+          phoneNumber,
+          address,
+          country,
+          zipCode,
+          city,
+          state,
+          password,
+        },
+        config
+      );
+      return data;
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      throw error;
+    }
   };
-  return <UserProfilePageComponent updateUserApiRequest={updateUserApiRequest} />;
+  return (
+    <UserProfilePageComponent updateUserApiRequest={updateUserApiRequest} />
+  );
 };
 
 export default UserProfilePage;
