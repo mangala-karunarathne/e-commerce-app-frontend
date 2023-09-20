@@ -7,14 +7,15 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
     success: "",
     error: "",
   });
+  const [passwordMatchState, setpasswordMatchState] = useState(true);
 
   const onChange = () => {
     const password = document.querySelector("input[name=password]");
-    const confirm = document.querySelector("input[name=confirmPassword]");
-    if (confirm.value === password.value) {
-      confirm.setCustomValidity("");
+    const confirmPassword = document.querySelector("input[name=confirmPassword]");
+    if (confirmPassword.value === password.value) {
+      setpasswordMatchState(true)
     } else {
-      confirm.setCustomValidity("Passwords do not match");
+      setpasswordMatchState(false)
     }
   };
 
@@ -163,6 +164,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                 placeholder="Password"
                 minLength={6}
                 onChange={onChange}
+                isInvalid={!passwordMatchState}
               />
               <Form.Control.Feedback type="invalid">
                 Please enter a valid password
@@ -180,6 +182,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                 placeholder="Repeat Password"
                 minLength={6}
                 onChange={onChange}
+                isInvalid={!passwordMatchState}
               />
               <Form.Control.Feedback type="invalid">
                 Both passwords should match
@@ -188,10 +191,21 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
             <Button variant="primary" type="submit">
               Update
             </Button>
-            <Alert show={updateUserResponseState && updateUserResponseState.error !== ""} variant="danger">
+            <Alert
+              show={
+                updateUserResponseState && updateUserResponseState.error !== ""
+              }
+              variant="danger"
+            >
               Something went wrong!
             </Alert>
-            <Alert show={updateUserResponseState && updateUserResponseState.success === "User Updated"} variant="info">
+            <Alert
+              show={
+                updateUserResponseState &&
+                updateUserResponseState.success === "User Updated"
+              }
+              variant="info"
+            >
               User Profile Updated
             </Alert>
           </Form>
