@@ -1,13 +1,21 @@
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const UserProfilePageComponent = ({ updateUserApiRequest }) => {
+const UserProfilePageComponent = ({ updateUserApiRequest, userInfo, fetchUser }) => {
   const [validated, setValidated] = useState(false);
   const [updateUserResponseState, setUpdateUserResponseState] = useState({
     success: "",
     error: "",
   });
   const [passwordMatchState, setpasswordMatchState] = useState(true);
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+   fetchUser(userInfo._id)
+   .then((data)=> setUser(data))
+   .catch((er)=>console.log(er))
+  }, [userInfo._id])
+  
 
   const onChange = () => {
     const password = document.querySelector("input[name=password]");
