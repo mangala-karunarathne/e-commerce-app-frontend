@@ -47,7 +47,7 @@ const updateUserApiRequest = async (
 };
 
 const fetchUser = async (user_id) => {
-  const { data } = await axios.get(`${URL}/api/users/profile`+ user_id, config);
+  const { data } = await axios.get(`${URL}/api/users/profile/`+ user_id, config);
   return data;
 };
 
