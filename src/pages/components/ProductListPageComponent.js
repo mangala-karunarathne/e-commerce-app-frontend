@@ -14,12 +14,15 @@ import CategoryFilterComponent from "../../components/filterQueryResultOptions/C
 import AttributesFilterComponent from "../../components/filterQueryResultOptions/AttributesFilterComponent";
 import ProductForListComponent from "../../components/ProductForListComponent";
 import PaginationComponent from "../../components/PaginationComponent";
+import { useState } from "react";
 
 const ProductListPageComponent = ({ getProducts }) => {
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     getProducts()
       .then((products) => {
         console.log("products :", products);
+        setProducts(products.products);
       })
       .catch((err) => {
         console.log(err);
@@ -54,11 +57,16 @@ const ProductListPageComponent = ({ getProducts }) => {
           </ListGroup>
         </Col>
         <Col md={9}>
-          {Array.from({ length: 5 }).map((_, idx) => (
+          {products.map((product) => (
             <ProductForListComponent
-              key={idx}
-              images={["games", "monitors", "tablets", "books", "videos"]}
-              idx={idx}
+              key={product._id}
+              images={product.images}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              rating={product.rating}
+              reviewsNumber={product.reviewsNumber}
+              productId={product._id}
             />
           ))}
           <PaginationComponent />
