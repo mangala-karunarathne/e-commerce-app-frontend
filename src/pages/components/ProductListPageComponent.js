@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Col,
@@ -15,9 +15,16 @@ import AttributesFilterComponent from "../../components/filterQueryResultOptions
 import ProductForListComponent from "../../components/ProductForListComponent";
 import PaginationComponent from "../../components/PaginationComponent";
 
-
-const ProductListPageComponent = () => {
-
+const ProductListPageComponent = ({ getProducts }) => {
+  useEffect(() => {
+    getProducts()
+      .then((products) => {
+        console.log("products :", products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Container fluid>
