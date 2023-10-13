@@ -12,19 +12,17 @@ const ProductForListComponent = ({productId,name,description,price,images,rating
         </Col>
         <Col lg={7}>
           <Card.Body>
-            <Card.Title>Lorem ipsum dolor sit amet.</Card.Title>
+            <Card.Title>{name}</Card.Title>
             <Card.Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos vel
-              commodi optio dignissimos laudantium temporibus, laboriosam, earum
-              vero dolore, pariatur porro possimus quaerat! Illo, eaque?
+              {description}
             </Card.Text>
             <Card.Text>
-              <Rating readonly size={20} initialValue={5} />
-              (1)
+              <Rating readonly size={20} initialValue={rating} />
+              ({reviewsNumber})
             </Card.Text>
             <Card.Text className="h4">
-              $125{" "}
-              <LinkContainer to="/product-details">
+              ${price}{" "}
+              <LinkContainer to={`/product-details/${productId}`}>
                 <Button variant="danger">See Product</Button>
               </LinkContainer>
             </Card.Text>
