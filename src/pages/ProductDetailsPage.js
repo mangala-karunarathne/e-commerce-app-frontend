@@ -14,9 +14,14 @@ import { Rating } from "react-simple-star-rating";
 import ImageZoom from "js-image-zoom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
+import { useParams } from "react-router-dom";
 
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
+
+  const { id } = useParams();
+  console.log("id :", id);
+
   const addToCartHandler = () => {
     dispatch(addToCart());
   };
