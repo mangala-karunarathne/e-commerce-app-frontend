@@ -14,7 +14,9 @@ const userInfoInLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(loc
 
 const INITIAL_STATE = {
   cart:{
-    
+    cartItems:[],
+    itemsCount:0,
+    cartSubtotal:0,
   },
   userRegisterLogin:{
     userInfo: userInfoInLocalStorage
