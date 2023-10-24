@@ -19,10 +19,30 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
       if (productAlreadyExistInState) {
         currentState.itemsCount = 0;
         currentState.cartSubtotal = 0;
-        currentState.cartItems = productAlreadyExistInState;
+        // currentState.cartItems = productAlreadyExistInState;
+        currentState.cartItems = state.cartItems.map((x) => {
+          if (x.productID === productAlreadyExistInState.productID) {
+            currentState.cartItems += Number(productBeingAddedToCart.quantity);
+            const sum =
+              Number(productBeingAddedToCart.quantity) *
+              Number(productBeingAddedToCart.price);
+            currentState.cartSubtotal += sum;
+          } else {
+            currentState.itemsCount += Number(x.quantity);
+            const sum = Number(x.quantity) * Number(x.price);
+            currentState.cartSubtotal += sum;
+          }
+          return x.productID === productAlreadyExistInState.productID
+            ? productBeingAddedToCart
+            : x;
+        });
       } else {
-        currentState.itemsCount = "x";
-        currentState.cartSubtotal = "x";
+        currentState.cartItems += Number(productBeingAddedToCart.quantity);
+        const sum =
+          Number(productBeingAddedToCart.quantity) *
+          Number(productBeingAddedToCart.price);
+        currentState.cartSubtotal += sum;
+        currentState.cartItems = [...state.cartItems, productBeingAddedToCart];
       }
 
       return currentState;
