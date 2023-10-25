@@ -21,7 +21,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         currentState.cartSubtotal = 0;
         // currentState.cartItems = productAlreadyExistInState;
         currentState.cartItems = state.cartItems.map((x) => {
-          if (x.productID === productAlreadyExistInState.productID) {
+          if (x.productId === productAlreadyExistInState.productId) {
             currentState.cartItems += Number(productBeingAddedToCart.quantity);
             const sum =
               Number(productBeingAddedToCart.quantity) *
@@ -32,7 +32,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
             const sum = Number(x.quantity) * Number(x.price);
             currentState.cartSubtotal += sum;
           }
-          return x.productID === productAlreadyExistInState.productID
+          return x.productId === productAlreadyExistInState.productId
             ? productBeingAddedToCart
             : x;
         });

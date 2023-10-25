@@ -22,11 +22,12 @@ const ProductListPageComponent = ({ getProducts }) => {
     getProducts()
       .then((products) => {
         console.log("products :", products);
-        setProducts(products.products);
+        setProducts(products?.products);
       })
       .catch((err) => {
         console.log(err);
       });
+      console.log("products after set :", products);
   }, []);
 
   return (
