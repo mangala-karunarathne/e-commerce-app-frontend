@@ -22,7 +22,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         // currentState.cartItems = productAlreadyExistInState;
         currentState.cartItems = state.cartItems.map((x) => {
           if (x.productId === productAlreadyExistInState.productId) {
-            currentState.cartItems += Number(productBeingAddedToCart.quantity);
+            currentState.itemsCount += Number(productBeingAddedToCart.quantity);
             const sum =
               Number(productBeingAddedToCart.quantity) *
               Number(productBeingAddedToCart.price);
@@ -37,7 +37,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
             : x;
         });
       } else {
-        currentState.cartItems += Number(productBeingAddedToCart.quantity);
+        currentState.itemsCount += Number(productBeingAddedToCart.quantity);
         const sum =
           Number(productBeingAddedToCart.quantity) *
           Number(productBeingAddedToCart.price);
@@ -48,5 +48,5 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
       return currentState;
     default:
       return state;
-  }
+  } 
 };
