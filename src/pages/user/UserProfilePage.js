@@ -4,15 +4,6 @@ import { URL } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setReduxUserState } from "../../redux/actions/userActions";
 
-const config = {
-  headers: {
-    Authorization:
-      sessionStorage.getItem("access_token") ||
-      localStorage.getItem("access_token"),
-  },
-};
-console.log("config", config);
-
 const updateUserApiRequest = async (
   name,
   lastName,
@@ -24,23 +15,31 @@ const updateUserApiRequest = async (
   state,
   password
 ) => {
+  const config = {
+    headers: {
+      Authorization:
+        sessionStorage.getItem("access_token") ||
+        localStorage.getItem("access_token"),
+    },
+  };
+  console.log("config", config);
   try {
-    const { data } = await axios.put(
-      `${URL}/api/users/profile`,
-      {
-        name,
-        lastName,
-        phoneNumber,
-        address,
-        country,
-        zipCode,
-        city,
-        state,
-        password,
-      },
-      config
-    );
-    return data;
+  const { data } = await axios.put(
+    `${URL}/api/users/profile`,
+    {
+      name,
+      lastName,
+      phoneNumber,
+      address,
+      country,
+      zipCode,
+      city,
+      state,
+      password,
+    },
+    config
+  );
+  return data;
   } catch (error) {
     console.error("Error updating user profile:", error);
     throw error;
@@ -48,6 +47,14 @@ const updateUserApiRequest = async (
 };
 
 const fetchUser = async (id) => {
+  const config = {
+    headers: {
+      Authorization:
+        sessionStorage.getItem("access_token") ||
+        localStorage.getItem("access_token"),
+    },
+  };
+  console.log("config", config);
   try {
     const { data } = await axios.get(`${URL}/api/users/profile/` + id, config);
     return data;
