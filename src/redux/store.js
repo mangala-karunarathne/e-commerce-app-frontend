@@ -3,26 +3,35 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 import { cartReducer } from "./reducers/cartReducers";
-import { userRegisterLoginReducer } from './reducers/userReducers';
+import { userRegisterLoginReducer } from "./reducers/userReducers";
 
 const reducer = combineReducers({
   cart: cartReducer,
   userRegisterLogin: userRegisterLoginReducer,
 });
 
-const userInfoInLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem("userInfo")) : {}
+const cratItemsInLocalStorage = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : sessionStorage.getItem("cart")
+  ? JSON.parse(sessionStorage.getItem("cart"))
+  : [];
+
+const userInfoInLocalStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : sessionStorage.getItem("userInfo")
+  ? JSON.parse(sessionStorage.getItem("userInfo"))
+  : {};
 
 const INITIAL_STATE = {
-  cart:{
-    cartItems:[],
-    itemsCount:0,
-    cartSubtotal:0,
+  cart: {
+    cartItems: cratItemsInLocalStorage,
+    itemsCount: cratItemsInLocalStorage ? cratItemsInLocalStorage.reduce((quantity, item)=>Number(item.quantity) + quantity,0):0,
+    cartSubtotal: 0,
   },
-  userRegisterLogin:{
-    userInfo: userInfoInLocalStorage
-  }
-  
-}
+  userRegisterLogin: {
+    userInfo: userInfoInLocalStorage,
+  },
+};
 
 const middleware = [thunk];
 
