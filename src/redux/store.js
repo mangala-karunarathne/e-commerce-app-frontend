@@ -26,7 +26,7 @@ const INITIAL_STATE = {
   cart: {
     cartItems: cratItemsInLocalStorage,
     itemsCount: cratItemsInLocalStorage ? cratItemsInLocalStorage.reduce((quantity, item)=>Number(item.quantity) + quantity,0):0,
-    cartSubtotal: 0,
+    cartSubtotal: cratItemsInLocalStorage ? cratItemsInLocalStorage.reduce((price, item)=>price + item.price*item.quantity,0):0,
   },
   userRegisterLogin: {
     userInfo: userInfoInLocalStorage,
