@@ -19,6 +19,8 @@ import { logout } from "../redux/actions/userActions";
 export default function HeaderComponent() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userRegisterLogin);
+  const itemsCount = useSelector((state) => state.cart.itemsCount);
+
   return (
     <Navbar
       className="z-10"
@@ -89,7 +91,7 @@ export default function HeaderComponent() {
             <LinkContainer to="/cart">
               <Nav.Link href="#pricing">
                 <Badge pill bg="danger">
-                  2
+                  {itemsCount === 0 ? "": itemsCount}
                 </Badge>
                 <i className="bi bi-cart-dash"></i>
                 <span className="ms-1">Cart</span>
