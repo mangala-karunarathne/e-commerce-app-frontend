@@ -21,10 +21,12 @@ const ProductDetailsPageComponent = ({
 }) => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
+  const [showCartMessage, setShowCartMessage] = useState(false);
 
   const addToCartHandler = () => {
-    reduxDispatch(addToCartReduxAction(id, quantity))
-  }
+    reduxDispatch(addToCartReduxAction(id, quantity));
+    setShowCartMessage(true);
+  };
 
   useEffect(() => {
     var options = {
@@ -44,7 +46,10 @@ const ProductDetailsPageComponent = ({
 
   return (
     <Container>
-      <AddedToCartMessegeComponent />
+      <AddedToCartMessegeComponent
+        setShowCartMessage={setShowCartMessage}
+        showCartMessage={showCartMessage}
+      />
       <Row className="mt-5">
         <Col style={{ zIndex: 1 }} md={4}>
           <div id="first">
@@ -88,7 +93,12 @@ const ProductDetailsPageComponent = ({
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Quantity :
-                  <Form.Select value={quantity} onChange={e => setQuantity(e.target.value)} size="lg" aria-label="Default select example">
+                  <Form.Select
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    size="lg"
+                    aria-label="Default select example"
+                  >
                     <option>Choose</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
