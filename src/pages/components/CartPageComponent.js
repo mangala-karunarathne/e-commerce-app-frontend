@@ -11,7 +11,7 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import CartItemComponent from "../../components/CartItemComponent";
 
-const CartPageComponent = () => {
+const CartPageComponent = ({addToCart, cartItems, cartSubtotal, reduxDispatch}) => {
   return (
     <Container fluid>
       <Row className="mt-4">
