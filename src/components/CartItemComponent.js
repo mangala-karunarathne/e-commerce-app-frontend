@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Col, Image, ListGroup, Row, Form } from "react-bootstrap";
 
-const CartItemComponent = ({ item, orderCreated = false }) => {
+const CartItemComponent = ({
+  item,
+  orderCreated = false,
+  changeCount,
+}) => {
   return (
     <>
       <ListGroup.Item>
@@ -19,7 +23,11 @@ const CartItemComponent = ({ item, orderCreated = false }) => {
           </Col>
           <Col md={3}>
             <Form.Select
-              onChange={() => {}}
+              onChange={
+                changeCount
+                  ? (e) => changeCount(item.productId, e.target.value)
+                  : undefined
+              }
               disabled={orderCreated}
               value={item.quantity}
             >
