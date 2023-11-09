@@ -11,30 +11,51 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import CartItemComponent from "../../components/CartItemComponent";
 
-const CartPageComponent = ({addToCart, cartItems, cartSubtotal, reduxDispatch}) => {
+const CartPageComponent = ({
+  addToCart,
+  cartItems,
+  cartSubtotal,
+  reduxDispatch,
+}) => {
+  const changeCount = (productId, count) => {
+    reduxDispatch(addToCart(productId, count));
+  };
+
   return (
     <Container fluid>
       <Row className="mt-4">
         <Col md={8}>
           <h1>Shoping Cart</h1>
-          <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((item, idx) => (
-              <CartItemComponent item={{image: {path: "/images/tablets.jpg"}, name: "Product Name", price: 10, count:10, quantity:10}} key={idx} />
-            ))}
-          </ListGroup>
-          <Alert variant="info">Your Cart is Empty</Alert>
+          {cartItems.lenght === 0 ? (
+            <Alert variant="info">Your Cart is Empty</Alert>
+          ) : (
+            <ListGroup variant="flush">
+              {cartItems.map((item, idx) => (
+                <CartItemComponent
+                  item={item}
+                  key={idx}
+                  changeCount={changeCount}
+                />
+              ))}
+            </ListGroup>
+          )}
         </Col>
         <Col md={4}>
           <ListGroup>
             <ListGroupItem>
-              <h3>Subtotal (2 Items)</h3>
+              <h3>
+                Subtotal ({cartItems.length} {" "}
+                {cartItems.length === 1 ? "Product" : "Products"})
+              </h3>
             </ListGroupItem>
             <ListGroupItem>
-              Price: <span className="fw-bold">$225</span>
+              Price: <span className="fw-bold">${cartSubtotal}</span>
             </ListGroupItem>
             <ListGroupItem>
               <LinkContainer to="/user/cart-details">
-                <Button type="button">Proceed to checkout</Button>
+                <Button disabled={cartSubtotal === 0} type="button">
+                  Proceed to checkout
+                </Button>
               </LinkContainer>
             </ListGroupItem>
           </ListGroup>
