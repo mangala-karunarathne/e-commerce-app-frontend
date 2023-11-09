@@ -20,6 +20,13 @@ const CartPageComponent = ({
   const changeCount = (productId, count) => {
     reduxDispatch(addToCart(productId, count));
   };
+  const removeFromCartHandler = (productId, quantity, price) => {
+    if (window.confirm("Are you sure?")) {
+      console.log("productId :", productId);
+      console.log("quantity :", quantity);
+      console.log("price :", price);
+    }
+  };
 
   return (
     <Container fluid>
@@ -35,6 +42,7 @@ const CartPageComponent = ({
                   item={item}
                   key={idx}
                   changeCount={changeCount}
+                  removeFromCartHandler={removeFromCartHandler}
                 />
               ))}
             </ListGroup>
@@ -44,7 +52,7 @@ const CartPageComponent = ({
           <ListGroup>
             <ListGroupItem>
               <h3>
-                Subtotal ({cartItems.length} {" "}
+                Subtotal ({cartItems.length}{" "}
                 {cartItems.length === 1 ? "Product" : "Products"})
               </h3>
             </ListGroupItem>
