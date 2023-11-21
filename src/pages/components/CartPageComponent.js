@@ -14,6 +14,7 @@ import CartItemComponent from "../../components/CartItemComponent";
 const CartPageComponent = ({
   addToCart,
   cartItems,
+  removeFromCart,
   cartSubtotal,
   reduxDispatch,
 }) => {
@@ -22,9 +23,7 @@ const CartPageComponent = ({
   };
   const removeFromCartHandler = (productId, quantity, price) => {
     if (window.confirm("Are you sure?")) {
-      console.log("productId :", productId);
-      console.log("quantity :", quantity);
-      console.log("price :", price);
+      reduxDispatch(removeFromCart(productId, quantity, price));
     }
   };
 
@@ -33,7 +32,7 @@ const CartPageComponent = ({
       <Row className="mt-4">
         <Col md={8}>
           <h1>Shoping Cart</h1>
-          {cartItems.lenght === 0 ? (
+          {cartItems.length === 0 ? (
             <Alert variant="info">Your Cart is Empty</Alert>
           ) : (
             <ListGroup variant="flush">
