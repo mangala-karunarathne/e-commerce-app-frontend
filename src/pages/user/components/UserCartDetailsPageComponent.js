@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
 
-const UserCartDetailsPageComponent = () => {
+const UserCartDetailsPageComponent = ({cartItems, itemsCount, cartSubtotal}) => {
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -51,8 +51,8 @@ const UserCartDetailsPageComponent = () => {
           <br />
           <h2>Order Items</h2>
           <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((item, idx) => (
-              <CartItemComponent item={{image: {path: "/images/tablets.jpg"}, name: "Product Name", price: 10, count:10, quantity:10}} key={idx} />
+            {cartItems.map((item, idx) => (
+              <CartItemComponent item={item} key={idx} />
             ))}
           </ListGroup>
         </Col>
@@ -62,7 +62,7 @@ const UserCartDetailsPageComponent = () => {
               <h3>Order Summary</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              Items Price (Including Tax): <span className="fw-bold">$125</span>
+              Items Price (Including Tax): <span className="fw-bold">${cartSubtotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
               Shipping: <span className="fw-bold">Included</span>
@@ -71,7 +71,7 @@ const UserCartDetailsPageComponent = () => {
               Tax: <span className="fw-bold">Included</span>
             </ListGroup.Item>
             <ListGroup.Item className="text-danger">
-              Total Price: <span className="fw-bold">$900</span>
+              Total Price: <span className="fw-bold">${cartSubtotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">
