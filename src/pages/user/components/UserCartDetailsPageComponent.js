@@ -23,7 +23,7 @@ const UserCartDetailsPageComponent = ({
     reduxDispatch(addToCart(productId, count));
   };
 
-  const removeFromcartHandler = (productId, quantity, price) => {
+  const removeFromCartHandler = (productId, quantity, price) => {
     if (window.confirm("Are you sure ?")) {
       reduxDispatch(removeFromCart(productId, quantity, price));
     }
@@ -75,7 +75,7 @@ const UserCartDetailsPageComponent = ({
                 item={item}
                 key={idx}
                 changeCount={changeCount}
-                removeFromcartHandler={removeFromcartHandler}
+                removeFromCartHandler={removeFromCartHandler}
               />
             ))}
           </ListGroup>
