@@ -10,7 +10,25 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
 
-const UserCartDetailsPageComponent = ({cartItems, itemsCount, cartSubtotal}) => {
+const UserCartDetailsPageComponent = ({
+  cartItems,
+  itemsCount,
+  cartSubtotal,
+  addToCart,
+  removeFromCart,
+  reduxDispatch,
+}) => {
+  
+  const changeCount = (productId, count) => {
+    reduxDispatch(addToCart(productId, count));
+  };
+
+  const removeFromcartHandler = (productId, quantity, price) => {
+    if (window.confirm("Are you sure ?")) {
+      reduxDispatch(removeFromCart(productId, quantity, price));
+    }
+  };
+
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -38,12 +56,13 @@ const UserCartDetailsPageComponent = ({cartItems, itemsCount, cartSubtotal}) => 
             <Row>
               <Col>
                 <Alert className="mt-3" variant="danger">
-                  Not Delivered. In order to make a oder, fill out your profile with correct Addresss, city etc. 
+                  Not Delivered. In order to make a oder, fill out your profile
+                  with correct Addresss, city etc.
                 </Alert>
               </Col>
               <Col>
                 <Alert className="mt-3" variant="success">
-                 Not Paid yet.
+                  Not Paid yet.
                 </Alert>
               </Col>
             </Row>
@@ -52,7 +71,12 @@ const UserCartDetailsPageComponent = ({cartItems, itemsCount, cartSubtotal}) => 
           <h2>Order Items</h2>
           <ListGroup variant="flush">
             {cartItems.map((item, idx) => (
-              <CartItemComponent item={item} key={idx} />
+              <CartItemComponent
+                item={item}
+                key={idx}
+                changeCount={changeCount}
+                removeFromcartHandler={removeFromcartHandler}
+              />
             ))}
           </ListGroup>
         </Col>
@@ -62,7 +86,8 @@ const UserCartDetailsPageComponent = ({cartItems, itemsCount, cartSubtotal}) => 
               <h3>Order Summary</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              Items Price (Including Tax): <span className="fw-bold">${cartSubtotal}</span>
+              Items Price (Including Tax):{" "}
+              <span className="fw-bold">${cartSubtotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
               Shipping: <span className="fw-bold">Included</span>
