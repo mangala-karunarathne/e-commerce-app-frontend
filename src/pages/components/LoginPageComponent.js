@@ -100,36 +100,42 @@ const LoginPageComponent = ({
                 Don't you have account ?<Link to={"/register"}> Register </Link>
               </Col>
             </Row>
-
-            <Button variant="primary" type="submit">
-              {loginUserResponseState &&
-              loginUserResponseState.loading === true ? (
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-              ) : (
-                ""
-              )}
-              Login
-            </Button>
-            <Col>
+            <Row className="justify-content-between">
+              <Col>
+                <Button variant="primary" type="submit">
+                  {loginUserResponseState &&
+                  loginUserResponseState.loading === true ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  Login
+                </Button>
               </Col>
-            <LoginSocialFacebook
-              appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-              onResolve={handleFacebookLogin}
-              onReject={(error) => {
-                console.log("Error: ", error);
-              }}
-            >
-              <Button>
-                Facebook Login
-              </Button>
-              
-            </LoginSocialFacebook>
+              <Col>
+                <LoginSocialFacebook
+                  appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+                  onResolve={handleFacebookLogin}
+                  onReject={(error) => {
+                    console.log("Error: ", error);
+                  }}
+                >
+                  <Button>Facebook Login</Button>
+                </LoginSocialFacebook>
+              </Col>
+              <Col>
+                <Link to={"/privacy-policy"}>
+                  <Button>Privacy Policy</Button>
+                </Link>
+              </Col>
+            </Row>
+
             <Alert
               show={
                 loginUserResponseState &&
