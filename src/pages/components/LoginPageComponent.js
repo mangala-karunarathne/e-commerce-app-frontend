@@ -61,45 +61,7 @@ const LoginPageComponent = ({
 
   const handleFacebookLogin = async (response) => {
     console.log("response:", response);
-
-    if (response.status === "connected") {
-      console.log("User is already logged in");
-
-      // Access the user's access token
-      const accessToken = response.authResponse.accessToken;
-      console.log("Access token:", accessToken);
-    } else {
-      console.log("User is not logged in");
-
-      if (!window.FB) {
-        // Load the Facebook SDK dynamically
-        (function (d, s, id) {
-          var js,
-            fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "https://connect.facebook.net/en_US/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
-        })(document, "script", "facebook-jssdk");
-      }
-
-      // Wait for the SDK to load before initializing
-      window.fbAsyncInit = function () {
-        window.FB.init({
-          appId: process.env.REACT_APP_FACEBOOK_APP_ID,
-          autoLogAppEvents: true,
-          xfbml: true,
-          version: "v12.0",
-        });
-
-        // Now that the SDK is initialized, you can use FB.getLoginStatus or other FB functions
-        window.FB.getLoginStatus(function (loginResponse) {
-          // Handle login status
-          console.log("Login status:", loginResponse);
-        });
-      };
-    }
+    console.log("FB Username: ", response.data.name);
   };
 
   return (
