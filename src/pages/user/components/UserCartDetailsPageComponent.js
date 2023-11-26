@@ -21,6 +21,8 @@ const UserCartDetailsPageComponent = ({
   getUser,
 }) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [userAddress, setUserAddress] = useState(false);
+  const [missingAddress, setMissingAddress] = useState("");
 
   const changeCount = (productId, count) => {
     reduxDispatch(addToCart(productId, count));
@@ -33,18 +35,35 @@ const UserCartDetailsPageComponent = ({
   };
 
   useEffect(() => {
-    getUser().then((data) => {
-      if (
-        !data.address ||
-        !data.city ||
-        !data.country ||
-        !data.zipCode ||
-        !data.state ||
-        !data.phoneNumber
-      ) {
-        setButtonDisabled(true)
-      }
-    }).catch((er)=> console.log(er.response.data.message ? er.response.data.message : er.response.data));
+    getUser()
+      .then((data) => {
+        if (
+          !data.address ||
+          !data.city ||
+          !data.country ||
+          !data.zipCode ||
+          !data.state ||
+          !data.phoneNumber
+        ) {
+          setButtonDisabled(true);
+          setMissingAddress(" In order to make order, fill out your profile with correct address, city etc...")
+        } else {
+          setUserAddress({
+            address: data.address,
+            city: data.city,
+            country: data.country,
+            zipCode: data.zipCode,
+            state: data.state,
+            phoneNumber: data.phoneNumber,
+          });
+          setMissingAddress(false)
+        }
+      })
+      .catch((er) =>
+        console.log(
+          er.response.data.message ? er.response.data.message : er.response.data
+        )
+      );
   }, [userInfo._id]);
 
   return (
@@ -58,9 +77,9 @@ const UserCartDetailsPageComponent = ({
               <h2>Shipping</h2>
               <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
-              <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
+              <b>Address</b>: {userAddress.address} {userAddress.city} {userAddress.state} {userAddress.zipCode}
               <br />
-              <b>Phone</b>:+94 77 111 6788
+              <b>Phone</b>: {userAddress.phoneNumber}
             </Col>
             <Col md={6}>
               <h2>Payment Method</h2>
@@ -74,8 +93,8 @@ const UserCartDetailsPageComponent = ({
             <Row>
               <Col>
                 <Alert className="mt-3" variant="danger">
-                  Not Delivered. In order to make a oder, fill out your profile
-                  with correct Addresss, city etc.
+                  Not Delivered.
+                  {missingAddress}
                 </Alert>
               </Col>
               <Col>
@@ -118,7 +137,12 @@ const UserCartDetailsPageComponent = ({
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">
-                <Button size="lg" variant="danger" type="button" disabled={buttonDisabled}>
+                <Button
+                  size="lg"
+                  variant="danger"
+                  type="button"
+                  disabled={buttonDisabled}
+                >
                   Pay for the Order
                 </Button>
               </div>
