@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Button,
@@ -18,9 +18,10 @@ const UserCartDetailsPageComponent = ({
   addToCart,
   removeFromCart,
   reduxDispatch,
-  getUser
+  getUser,
 }) => {
-  
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const changeCount = (productId, count) => {
     reduxDispatch(addToCart(productId, count));
   };
@@ -31,7 +32,20 @@ const UserCartDetailsPageComponent = ({
     }
   };
 
-  getUser().then(res => console.log("res:", res))
+  useEffect(() => {
+    getUser().then((data) => {
+      if (
+        !data.address ||
+        !data.city ||
+        !data.country ||
+        !data.zipCode ||
+        !data.state ||
+        !data.phoneNumber
+      ) {
+        setButtonDisabled(true)
+      }
+    }).catch((er)=> console.log(er.response.data.message ? er.response.data.message : er.response.data));
+  }, [userInfo._id]);
 
   return (
     <Container fluid>
@@ -104,7 +118,7 @@ const UserCartDetailsPageComponent = ({
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">
-                <Button size="lg" variant="danger" type="button">
+                <Button size="lg" variant="danger" type="button" disabled={buttonDisabled}>
                   Pay for the Order
                 </Button>
               </div>
