@@ -23,6 +23,7 @@ const UserCartDetailsPageComponent = ({
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [userAddress, setUserAddress] = useState(false);
   const [missingAddress, setMissingAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("pp");
 
   const changeCount = (productId, count) => {
     reduxDispatch(addToCart(productId, count));
@@ -66,6 +67,31 @@ const UserCartDetailsPageComponent = ({
       );
   }, [userInfo._id]);
 
+  const orderHandler = async () => {
+    const orderData = {
+      orderTotal: {
+        itemsCount: itemsCount,
+        cartSubtotal: cartSubtotal,
+      },
+      cartItems: cartItems.map(item => {
+        return {
+          productId: item.productId,
+          name: item.name,
+          price: item.price,
+          image: {path: item.image ? (item.image.path ?? null) : null },
+          quantity: item.quantity,
+          count: item.count,
+        }
+      }),
+      paymentMethod: paymentMethod,
+    }
+    console.log(orderData);
+  };
+
+const choosePayment =  (e) => {
+  setPaymentMethod(e.target.value)
+};
+
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -83,7 +109,9 @@ const UserCartDetailsPageComponent = ({
             </Col>
             <Col md={6}>
               <h2>Payment Method</h2>
-              <Form.Select disabled={false}>
+              <Form.Select 
+              onChange={choosePayment}
+              disabled={false}>
                 <option value="pp">Paypal</option>
                 <option value="cod">
                   Cash on Delivery (Delivery may be delayed)
@@ -139,11 +167,12 @@ const UserCartDetailsPageComponent = ({
               <div className="d-grid gap-2">
                 <Button
                   size="lg"
+                  onClick={orderHandler}
                   variant="danger"
                   type="button"
                   disabled={buttonDisabled}
                 >
-                  Pay for the Order
+                 Place Order
                 </Button>
               </div>
             </ListGroup.Item>
