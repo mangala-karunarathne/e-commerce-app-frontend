@@ -14,9 +14,11 @@ const UserCartDetailsPageComponent = ({
   cartItems,
   itemsCount,
   cartSubtotal,
+  userInfo,
   addToCart,
   removeFromCart,
   reduxDispatch,
+  getUser
 }) => {
   
   const changeCount = (productId, count) => {
@@ -29,6 +31,8 @@ const UserCartDetailsPageComponent = ({
     }
   };
 
+  getUser().then(res => console.log("res:", res))
+
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -38,7 +42,7 @@ const UserCartDetailsPageComponent = ({
           <Row>
             <Col md={6}>
               <h2>Shipping</h2>
-              <b>Name</b>: Mangala Karunarathne
+              <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
               <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
               <br />
