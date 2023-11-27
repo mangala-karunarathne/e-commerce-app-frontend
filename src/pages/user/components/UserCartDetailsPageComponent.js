@@ -9,6 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
+import { useNavigate } from "react-router-dom";
 
 const UserCartDetailsPageComponent = ({
   cartItems,
@@ -19,11 +20,14 @@ const UserCartDetailsPageComponent = ({
   removeFromCart,
   reduxDispatch,
   getUser,
+  createOrder,
 }) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [userAddress, setUserAddress] = useState(false);
   const [missingAddress, setMissingAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("pp");
+
+  const navigate = useNavigate();
 
   const changeCount = (productId, count) => {
     reduxDispatch(addToCart(productId, count));
@@ -47,7 +51,9 @@ const UserCartDetailsPageComponent = ({
           !data.phoneNumber
         ) {
           setButtonDisabled(true);
-          setMissingAddress(" In order to make order, fill out your profile with correct address, city etc...")
+          setMissingAddress(
+            " In order to make order, fill out your profile with correct address, city etc..."
+          );
         } else {
           setUserAddress({
             address: data.address,
@@ -57,7 +63,7 @@ const UserCartDetailsPageComponent = ({
             state: data.state,
             phoneNumber: data.phoneNumber,
           });
-          setMissingAddress(false)
+          setMissingAddress(false);
         }
       })
       .catch((er) =>
@@ -73,24 +79,30 @@ const UserCartDetailsPageComponent = ({
         itemsCount: itemsCount,
         cartSubtotal: cartSubtotal,
       },
-      cartItems: cartItems.map(item => {
+      cartItems: cartItems.map((item) => {
         return {
           productId: item.productId,
           name: item.name,
           price: item.price,
-          image: {path: item.image ? (item.image.path ?? null) : null },
+          image: { path: item.image ? item.image.path ?? null : null },
           quantity: item.quantity,
           count: item.count,
-        }
+        };
       }),
       paymentMethod: paymentMethod,
-    }
-    console.log(orderData);
+    };
+    createOrder(orderData)
+      .then((data) => {
+        if (data) {
+          navigate("/user/order-details/" + data._id);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
-const choosePayment =  (e) => {
-  setPaymentMethod(e.target.value)
-};
+  const choosePayment = (e) => {
+    setPaymentMethod(e.target.value);
+  };
 
   return (
     <Container fluid>
@@ -103,15 +115,14 @@ const choosePayment =  (e) => {
               <h2>Shipping</h2>
               <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
-              <b>Address</b>: {userAddress.address} {userAddress.city} {userAddress.state} {userAddress.zipCode}
+              <b>Address</b>: {userAddress.address} {userAddress.city}{" "}
+              {userAddress.state} {userAddress.zipCode}
               <br />
               <b>Phone</b>: {userAddress.phoneNumber}
             </Col>
             <Col md={6}>
               <h2>Payment Method</h2>
-              <Form.Select 
-              onChange={choosePayment}
-              disabled={false}>
+              <Form.Select onChange={choosePayment} disabled={false}>
                 <option value="pp">Paypal</option>
                 <option value="cod">
                   Cash on Delivery (Delivery may be delayed)
@@ -172,7 +183,7 @@ const choosePayment =  (e) => {
                   type="button"
                   disabled={buttonDisabled}
                 >
-                 Place Order
+                  Place Order
                 </Button>
               </div>
             </ListGroup.Item>
