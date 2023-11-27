@@ -28,6 +28,12 @@ const UserCartDetailsPage = () => {
     return data
   };
 
+  const createOrder = async (orderData) => {
+    const {data} = await axios.post(`${URL}/api/orders`,{...orderData},
+    config)
+    return data
+  };
+
   return (
     <UserCartDetailsPageComponent
       cartItems={cartItems}
@@ -38,6 +44,7 @@ const UserCartDetailsPage = () => {
       removeFromCart={removeFromCart}
       reduxDispatch={reduxDispatch}
       getUser={getUser}
+      createOrder={createOrder}
     />
   );
 };
