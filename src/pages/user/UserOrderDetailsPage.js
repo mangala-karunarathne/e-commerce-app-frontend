@@ -10,10 +10,13 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../components/CartItemComponent";
 import UseerOrderDetailsPageComponent from "./components/UseerOrderDetailsPageComponent";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const UserOrderDetailsPage = () => {
+  const userInfo = useSelector((state) => state.userRegisterLogin.userInfo)
   return (
-    <UseerOrderDetailsPageComponent />
+    <UseerOrderDetailsPageComponent userInfo={userInfo}/>
   );
 };
 

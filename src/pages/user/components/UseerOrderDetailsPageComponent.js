@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
 
-const UseerOrderDetailsPageComponent = () => {
+const UseerOrderDetailsPageComponent = ({userInfo}) => {
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -20,7 +20,7 @@ const UseerOrderDetailsPageComponent = () => {
           <Row>
             <Col md={6}>
               <h2>Shipping</h2>
-              <b>Name</b>: Mangala Karunarathne
+              <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
               <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
               <br />
