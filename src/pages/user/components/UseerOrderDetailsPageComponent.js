@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Button,
@@ -10,7 +10,15 @@ import {
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
 
-const UseerOrderDetailsPageComponent = ({userInfo}) => {
+const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
+  const [userAddress, setUserAddress] = useState({});
+
+  useEffect(() => {
+    getUser()
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -52,7 +60,16 @@ const UseerOrderDetailsPageComponent = ({userInfo}) => {
           <h2>Order Items</h2>
           <ListGroup variant="flush">
             {Array.from({ length: 3 }).map((item, idx) => (
-              <CartItemComponent item={{image: {path: "/images/tablets.jpg"}, name: "Product Name", price: 10, count:10, quantity:10}} key={idx} />
+              <CartItemComponent
+                item={{
+                  image: { path: "/images/tablets.jpg" },
+                  name: "Product Name",
+                  price: 10,
+                  count: 10,
+                  quantity: 10,
+                }}
+                key={idx}
+              />
             ))}
           </ListGroup>
         </Col>
