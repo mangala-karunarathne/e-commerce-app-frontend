@@ -11,12 +11,29 @@ import {
 import CartItemComponent from "../../components/CartItemComponent";
 import UseerOrderDetailsPageComponent from "./components/UseerOrderDetailsPageComponent";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { URL } from "../../App";
 
 
 const UserOrderDetailsPage = () => {
   const userInfo = useSelector((state) => state.userRegisterLogin.userInfo)
+
+  const config = {
+    headers: {
+      Authorization:
+        sessionStorage.getItem("access_token") ||
+        localStorage.getItem("access_token"),
+    },
+  };
+
+const getUser = async (req, res) => {
+  const {data} = await axios.get(`${URL}/api/users/profile`+ userInfo._id, config)
+  return data;
+};
+
+
   return (
-    <UseerOrderDetailsPageComponent userInfo={userInfo}/>
+    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser}/>
   );
 };
 
