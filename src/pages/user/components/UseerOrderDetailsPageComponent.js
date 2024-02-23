@@ -15,7 +15,10 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
 
   useEffect(() => {
     getUser()
-      .then((data) => console.log(data))
+      .then((data) => {
+        setUserAddress({ address: data.address, city: data.city, country: data.country, 
+          zipCode: data.zipCode, state: data.state, phoneNumber: data.phoneNumber});
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -30,9 +33,10 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
               <h2>Shipping</h2>
               <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
-              <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
+              <b>Address</b>: 
+                {userAddress.address} {userAddress.city} {userAddress.state} {userAddress.zipCode}
               <br />
-              <b>Phone</b>:+94 77 111 6788
+              <b>Phone</b>: {userAddress.phoneNumber}
             </Col>
             <Col md={6}>
               <h2>Payment Method</h2>
