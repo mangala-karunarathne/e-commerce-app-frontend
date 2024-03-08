@@ -14,6 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { URL } from "../../App";
 
+const getOrder = async (orderId) => {
+  const { data } = await axios.get("/api/orders/user" + orderId);
+  return data;
+}
+
 
 const UserOrderDetailsPage = () => {
   const userInfo = useSelector((state) => state.userRegisterLogin.userInfo);
