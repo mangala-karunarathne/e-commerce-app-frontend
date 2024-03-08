@@ -14,10 +14,25 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
   const [userAddress, setUserAddress] = useState({});
 
   useEffect(() => {
+    // console.log("check :", userAddress );
     getUser()
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }, []);
+      .then(
+        (data) => {
+          // console.log("data A:", data);
+          // console.log("data 1:", data.address);
+          setUserAddress({
+            address: data.address,
+            city: data.city,
+            country: data.country,
+            zipCode: data.zipCode,
+            state: data.state,
+            phoneNumber: data.phoneNumber,
+          });
+        }
+        )
+        .catch((err) => console.log("shit", err));
+        // console.log("check :", userAddress );
+      }, []);
 
   return (
     <Container fluid>
@@ -30,9 +45,10 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
               <h2>Shipping</h2>
               <b>Name</b>: {userInfo.name} {userInfo.lastName}
               <br />
-              <b>Address</b>: No: 24, Babar Waththa, Maraluwawa.
+              <b>Address</b>: {userAddress.address} {userAddress.city}{" "}
+              {userAddress.state} {userAddress.zipCode}
               <br />
-              <b>Phone</b>:+94 77 111 6788
+              <b>Phone</b>: {userAddress.phoneNumber}
             </Col>
             <Col md={6}>
               <h2>Payment Method</h2>

@@ -16,24 +16,28 @@ import { URL } from "../../App";
 
 
 const UserOrderDetailsPage = () => {
-  const userInfo = useSelector((state) => state.userRegisterLogin.userInfo)
-
-  const config = {
-    headers: {
-      Authorization:
+  const userInfo = useSelector((state) => state.userRegisterLogin.userInfo);
+  const getUser = async () => {
+    
+    const config = {
+      headers: {
+        Authorization:
         sessionStorage.getItem("access_token") ||
         localStorage.getItem("access_token"),
-    },
-  };
+      },
+    };
+    
+    const  {data}  = await axios.get(
+      `${URL}/api/users/profile/` + userInfo._id,
+      config
+      );
+      return data;
+    };
 
-const getUser = async (req, res) => {
-  const {data} = await axios.get(`${URL}/api/users/profile`+ userInfo._id, config)
-  return data;
-};
-
+  // console.log("sad", getUser);
 
   return (
-    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser}/>
+    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser} />
   );
 };
 
