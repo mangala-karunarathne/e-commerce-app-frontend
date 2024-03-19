@@ -9,9 +9,11 @@ import {
   Row,
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
+import { useParams } from "react-router-dom";
 
-const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
+const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
   const [userAddress, setUserAddress] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
     // console.log("check :", userAddress );
@@ -32,6 +34,13 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser }) => {
         )
         .catch((err) => console.log("shit", err));
         // console.log("check :", userAddress );
+      }, []);
+
+      useEffect(() => {
+        getOrder(id).then(data => {
+          console.log(data);
+        })
+        .catch((err) => console.log(err));
       }, []);
 
   return (

@@ -42,7 +42,7 @@ const UserOrderDetailsPage = () => {
   // console.log("sad", getUser);
 
   return (
-    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser} />
+    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser} getOrder={getOrder} />
   );
 };
 
