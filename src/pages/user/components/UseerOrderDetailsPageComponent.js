@@ -48,6 +48,7 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
         getOrder(id).then(data => {
           setPaymentMethod(data.paymentMethod);
           setCartItems(data.cartItems);
+          console.log("Cart Items", data.cartItems ) 
           setCartSubTotal(data.orderTotal.cartSubTotal);
           data.isDelivered ? setIsDelivered(data.deliveredAt) : setIsDelivered(false);
           data.isPaid ? setIsPaid(data.paidAt) : setIsPaid(false);
@@ -107,16 +108,11 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
           <br />
           <h2>Order Items</h2>
           <ListGroup variant="flush">
-            {Array.from({ length: 3 }).map((item, idx) => (
+            {cartItems.map((item, idx) => (
               <CartItemComponent
-                item={{
-                  image: { path: "/images/tablets.jpg" },
-                  name: "Product Name",
-                  price: 10,
-                  count: 10,
-                  quantity: 10,
-                }}
+                item={item}
                 key={idx}
+                orderCreated={true}
               />
             ))}
           </ListGroup>
