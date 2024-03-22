@@ -15,7 +15,18 @@ import axios from "axios";
 import { URL } from "../../App";
 
 const getOrder = async (orderId) => {
-  const { data } = await axios.get("/api/orders/user" + orderId);
+  const config = {
+    headers: {
+      Authorization:
+      sessionStorage.getItem("access_token") ||
+      localStorage.getItem("access_token"),
+    },
+  };
+  const { data } = await axios.get(
+    `${URL}/api/orders/user/` + orderId, 
+    config
+  );
+  
   return data;
 }
 

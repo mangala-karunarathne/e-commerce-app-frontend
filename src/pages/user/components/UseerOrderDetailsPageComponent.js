@@ -49,7 +49,7 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
           setPaymentMethod(data.paymentMethod);
           setCartItems(data.cartItems);
           console.log("Cart Items", data.cartItems ) 
-          setCartSubTotal(data.orderTotal.cartSubTotal);
+          setCartSubTotal(data.orderTotal.cartSubtotal);
           data.isDelivered ? setIsDelivered(data.deliveredAt) : setIsDelivered(false);
           data.isPaid ? setIsPaid(data.paidAt) : setIsPaid(false);
           if(data.isPaid) {
@@ -66,6 +66,18 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
         })
         .catch((err) => console.log(err));
       }, []);
+
+      const orderHandler = () => {
+        setButtonDisabled(true);
+        if (paymentMethod === 'pp') {
+          setOrderButtonMessage("To pay for your order click one of the buttons below");
+          if(!isPaid) {
+            // to do
+          }
+        } else {
+          setOrderButtonMessage("Your order was placed. Thank You");
+        }
+      }
 
   return (
     <Container fluid>
@@ -136,7 +148,7 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">
-                <Button size="lg" variant="danger" type="button" disabled={buttonDisabled}>
+                <Button size="lg" onClick={orderHandler} variant="danger" type="button" disabled={buttonDisabled}>
                   {orderButtonMessage}
                 </Button>
               </div>
