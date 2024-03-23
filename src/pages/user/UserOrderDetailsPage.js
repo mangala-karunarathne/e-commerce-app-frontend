@@ -13,6 +13,7 @@ import UseerOrderDetailsPageComponent from "./components/UseerOrderDetailsPageCo
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { URL } from "../../App";
+import { loadScript } from "@paypal/paypal-js";
 
 const getOrder = async (orderId) => {
   const config = {
@@ -53,7 +54,12 @@ const UserOrderDetailsPage = () => {
   // console.log("sad", getUser);
 
   return (
-    <UseerOrderDetailsPageComponent userInfo={userInfo} getUser={getUser} getOrder={getOrder} />
+    <UseerOrderDetailsPageComponent 
+      userInfo={userInfo} 
+      getUser={getUser} 
+      getOrder={getOrder} 
+      loadScript={loadScript} 
+    />
   );
 };
 
