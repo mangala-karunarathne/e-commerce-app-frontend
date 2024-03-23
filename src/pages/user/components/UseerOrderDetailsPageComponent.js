@@ -11,7 +11,7 @@ import {
 import CartItemComponent from "../../../components/CartItemComponent";
 import { useParams } from "react-router-dom";
 
-const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
+const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder, loadScript }) => {
   const [userAddress, setUserAddress] = useState({});
   const [paymentMethod, setPaymentMethod] = useState('');
   const [isPaid, setIsPaid] = useState(false);
@@ -72,7 +72,15 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
         if (paymentMethod === 'pp') {
           setOrderButtonMessage("To pay for your order click one of the buttons below");
           if(!isPaid) {
-            // to do
+            loadScript({
+              "client-id": "ARZSc3ZTEz7iPo8TaqVA224YABlusXGuWf7KafM5dDwCu04Op2f9bHaOO5hDPGnIuoLl-iJMhMPV_YMi"
+            })
+            .then((paypal) => {
+              console.log(paypal);
+            })
+            .catch((err) => {
+              console.log("failed to load the PayPal JS SDK script", err);
+            })
           }
         } else {
           setOrderButtonMessage("Your order was placed. Thank You");
