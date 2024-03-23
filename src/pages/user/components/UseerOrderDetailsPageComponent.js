@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Button,
@@ -20,6 +20,9 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder, loadScrip
   const [cartSubTotal, setCartSubTotal] = useState(0);
   const [isDelivered, setIsDelivered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const paypalContainer = useRef();
+  console.log(paypalContainer);
 
   const { id } = useParams();
 
@@ -76,7 +79,7 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder, loadScrip
               "client-id": "ARZSc3ZTEz7iPo8TaqVA224YABlusXGuWf7KafM5dDwCu04Op2f9bHaOO5hDPGnIuoLl-iJMhMPV_YMi"
             })
             .then((paypal) => {
-              console.log(paypal);
+              paypal.Buttons({}).render("#paypal-container-element");
             })
             .catch((err) => {
               console.log("failed to load the PayPal JS SDK script", err);
@@ -159,6 +162,11 @@ const UseerOrderDetailsPageComponent = ({ userInfo, getUser, getOrder, loadScrip
                 <Button size="lg" onClick={orderHandler} variant="danger" type="button" disabled={buttonDisabled}>
                   {orderButtonMessage}
                 </Button>
+              </div>
+              <div style={{ position: "relative", zIndex: 1}}>
+                <div ref={paypalContainer} id="paypal-container-element">
+
+                </div>
               </div>
             </ListGroup.Item>
           </ListGroup>
