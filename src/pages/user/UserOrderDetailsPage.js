@@ -31,26 +31,56 @@ const getOrder = async (orderId) => {
   return data;
 }
 
-const loadPayPalScript = () => {
+const loadPayPalScript = (cartSubtotal, cartItems) => {
   loadScript({
     "client-id": "ARZSc3ZTEz7iPo8TaqVA224YABlusXGuWf7KafM5dDwCu04Op2f9bHaOO5hDPGnIuoLl-iJMhMPV_YMi"
   })
   .then((paypal) => {
-    paypal.Buttons({
-      createOrder: createPayPalOrderHandler,
-      onCancel: onCancelHandler,
-      onApprove: onApproveHandler,
-      onError: onErrorHandler,
-    }).render("#paypal-container-element");
+    paypal.Buttons(buttons(cartSubtotal, cartItems)).render("#paypal-container-element");
   })
   .catch((err) => {
     console.log("failed to load the PayPal JS SDK script", err);
   })
 }
 
-const createPayPalOrderHandler = () => {
-  console.log("createPayPalOrderHandler")
+const buttons = (cartSubtotal, cartItems) =>{
+  return {
+    createOrder: function (data, actions) {
+      return actions.order.create({
+        purchase_units: [
+          {
+            amount: {
+              value: cartSubtotal,
+              breakdown: {
+                item_total: {
+                  currency_code: "USD",
+                  value: cartSubtotal
+                }
+              }
+            },
+            items: cartItems.map(product => {
+              return {
+                name: product.name,
+                unit_amount: {
+                  currency_code: "USD",
+                  value: product.price,
+                },
+                quantity: product.quantity,
+              }
+            })
+          }
+        ]
+      })
+    },
+    onCancel: onCancelHandler,
+    onApprove: onApproveHandler,
+    onError: onErrorHandler,
+  }
 }
+
+// const createPayPalOrderHandler = () => {
+//   console.log("createPayPalOrderHandler")
+// }
 
 const onCancelHandler = () => {
   console.log("onCancelHandler")
