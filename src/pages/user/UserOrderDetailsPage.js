@@ -73,7 +73,14 @@ const buttons = (cartSubtotal, cartItems) =>{
       })
     },
     onCancel: onCancelHandler,
-    onApprove: onApproveHandler,
+
+    onApprove: function (data, actions) {
+      return actions.order.capture().then(function (orderData) {
+        console.log(orderData);
+      })
+    },
+
+    
     onError: onErrorHandler,
   }
 }
@@ -86,9 +93,9 @@ const onCancelHandler = () => {
   console.log("onCancelHandler")
 }
 
-const onApproveHandler = () => {
-  console.log("onApproveHandler")
-}
+// const onApproveHandler = () => {
+//   console.log("onApproveHandler")
+// }
 
 const onErrorHandler = () => {
   console.log("onErrorHandler")
